@@ -4,11 +4,15 @@ import { AsyncLocalStorage } from 'async_hooks';
 import { IUnitOfWorkInterface } from 'src/shared/interfaces/unit-of-work';
 import { TYPEORM_CONNECTION } from '../providers/typeorm.provider';
 import { MedidaOrm } from '../orm/medida.orm';
+import { MarcaOrm } from '../orm/marca.orm';
+import { UserOrm } from '../orm/user.orm';
 
 @Injectable()
 export class TypeormUnitOfWork implements IUnitOfWorkInterface {
   private logger = new Logger(TypeormUnitOfWork.name);
   public medidaRepository: Repository<MedidaOrm>;
+  public marcaRepository: Repository<MarcaOrm>;
+  public userRepository: Repository<UserOrm>;
 
   constructor(
     @Inject(TYPEORM_CONNECTION)
@@ -52,6 +56,8 @@ export class TypeormUnitOfWork implements IUnitOfWorkInterface {
 
   initRepositories() {
     this.medidaRepository = this.getManager().getRepository(MedidaOrm);
+    this.marcaRepository = this.getManager().getRepository(MarcaOrm);
+    this.userRepository = this.getManager().getRepository(UserOrm);
   }
 
   getManager(): EntityManager {

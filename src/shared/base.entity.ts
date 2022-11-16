@@ -1,9 +1,11 @@
 import { IdentifyUUID } from 'src/domain/value-objects/identify-uuid';
 
 export class BaseEntity {
-  private id: IdentifyUUID;
-  private createdAt: Date;
-  private updatedAt: Date;
+  protected id: IdentifyUUID;
+  protected createdAt: Date;
+  protected updatedAt: Date;
+
+  protected fieldEspecial = {};
 
   constructor() {
     this.id = new IdentifyUUID();
@@ -35,5 +37,9 @@ export class BaseEntity {
 
   load(partial: Partial<any>) {
     Object.assign(this, partial);
+    Object.keys(this.fieldEspecial).forEach((attr) => {
+      const classField = this.fieldEspecial[attr];
+      this[attr] = new classField(this[attr]);
+    });
   }
 }

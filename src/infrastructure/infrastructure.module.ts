@@ -1,8 +1,8 @@
 import { Module } from '@nestjs/common';
-import { DatabaseModule } from './database/database.module';
+import { AuthenticationModule } from './authentication/authentication.module';
 import { HttpModule } from './http/http.module';
 
 @Module({
-  imports: [DatabaseModule, HttpModule],
+  imports: [HttpModule, AuthenticationModule],
 })
 export class InfrastructureModule {}
