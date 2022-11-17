@@ -6,6 +6,7 @@ import {
   ParseUUIDPipe,
   Post,
   Put,
+  Query,
 } from '@nestjs/common';
 import { of } from 'rxjs';
 import { UserCreateService } from 'src/application/users/user-create.service';
@@ -14,13 +15,24 @@ import {
   UserFindRequest,
   UserFindService,
 } from 'src/application/users/user-find.service';
+import { UserPaginateService } from 'src/application/users/user-paginate.service';
 import { IdentifyUUID } from 'src/domain/value-objects/identify-uuid';
 import { TypeormUnitOfWork } from 'src/infrastructure/database/unit-of-works/typeorm.unit-of-work';
+import { PaginateDto } from '../dtos/paginate.dto';
 import { UserCreateDto } from '../dtos/user-create.dto';
 
 @Controller('users')
 export class UsersController {
   constructor(private unitOfWork: TypeormUnitOfWork) {}
+
+  @Get()
+  async index(@Query() request: PaginateDto) {
+    const service = new UserPaginateService(this.unitOfWork);
+    const result = await this.unitOfWork.complete(() =>
+      service.execute(request),
+    );
+    return of(result);
+  }
 
   @Post()
   async store(@Body() request: UserCreateDto) {
