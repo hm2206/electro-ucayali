@@ -5,6 +5,7 @@ export interface IUnitOfWorkInterface {
   marcaRepository: Repository<any>;
   userRepository: Repository<any>;
   areaRepository: Repository<any>;
+  lugarRepository: Repository<any>;
   start(): Promise<void>;
   complete(cb: () => any): Promise<any>;
   getRepository(repository: any): Repository<any>;

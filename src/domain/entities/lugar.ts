@@ -2,7 +2,7 @@ import { BaseEntity } from 'src/shared/base.entity';
 import { IdentifyUUID } from '../value-objects/identify-uuid';
 import { NoneEmptyString } from '../value-objects/none-empty-string';
 
-export class Area extends BaseEntity {
+export class Lugar extends BaseEntity {
   private name: NoneEmptyString;
   private description: NoneEmptyString;
 

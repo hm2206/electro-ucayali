@@ -1,4 +1,5 @@
 import { IdentifyUUID } from 'src/domain/value-objects/identify-uuid';
+import { ParseValue } from './utils/parse-value';
 
 export class BaseEntity {
   protected id: IdentifyUUID;
@@ -39,7 +40,9 @@ export class BaseEntity {
     Object.assign(this, partial);
     Object.keys(this.fieldEspecial).forEach((attr) => {
       const classField = this.fieldEspecial[attr];
-      this[attr] = new classField(this[attr]);
+      const classSource = this[attr];
+      const value = new ParseValue(classSource);
+      this[attr] = new classField(value.getValue());
     });
   }
 }

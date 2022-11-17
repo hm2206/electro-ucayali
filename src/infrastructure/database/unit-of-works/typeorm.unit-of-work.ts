@@ -7,6 +7,7 @@ import { MedidaOrm } from '../orm/medida.orm';
 import { MarcaOrm } from '../orm/marca.orm';
 import { UserOrm } from '../orm/user.orm';
 import { AreaOrm } from '../orm/area.orm';
+import { LugarOrm } from '../orm/lugar.orm';
 
 @Injectable()
 export class TypeormUnitOfWork implements IUnitOfWorkInterface {
@@ -15,6 +16,7 @@ export class TypeormUnitOfWork implements IUnitOfWorkInterface {
   public marcaRepository: Repository<MarcaOrm>;
   public userRepository: Repository<UserOrm>;
   public areaRepository: Repository<AreaOrm>;
+  public lugarRepository: Repository<LugarOrm>;
 
   constructor(
     @Inject(TYPEORM_CONNECTION)
@@ -61,6 +63,7 @@ export class TypeormUnitOfWork implements IUnitOfWorkInterface {
     this.marcaRepository = this.getManager().getRepository(MarcaOrm);
     this.userRepository = this.getManager().getRepository(UserOrm);
     this.areaRepository = this.getManager().getRepository(AreaOrm);
+    this.lugarRepository = this.getManager().getRepository(LugarOrm);
   }
 
   getManager(): EntityManager {

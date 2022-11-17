@@ -3,6 +3,7 @@ import { AuthenticationModule } from '../authentication/authentication.module';
 import { DatabaseModule } from '../database/database.module';
 import { AreasController } from './controllers/areas.controller';
 import { LoginController } from './controllers/login.controller';
+import { LugaresController } from './controllers/lugares.controller';
 import { MarcasController } from './controllers/marcas.controller';
 import { MedidasController } from './controllers/medidas.controller';
 import { UsersController } from './controllers/users.controller';
@@ -14,6 +15,7 @@ import { UsersController } from './controllers/users.controller';
     MarcasController,
     UsersController,
     AreasController,
+    LugaresController,
     LoginController,
   ],
 })
