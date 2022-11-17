@@ -1,4 +1,5 @@
 import { Connection } from 'typeorm';
+import { AreaOrm } from '../orm/area.orm';
 import { MarcaOrm } from '../orm/marca.orm';
 import { MedidaOrm } from '../orm/medida.orm';
 import { UserOrm } from '../orm/user.orm';
@@ -7,6 +8,7 @@ import { TYPEORM_CONNECTION } from '../providers/typeorm.provider';
 export const MARCA_ORM = 'MARCA_ORM';
 export const MEDIDA_ORM = 'MEDIDA_ORM';
 export const USER_ORM = 'USER_ORM';
+export const AREA_ORM = 'AREA_ORM';
 
 export const entitiesRepositories = [
   {
@@ -22,6 +24,11 @@ export const entitiesRepositories = [
   {
     provide: USER_ORM,
     useFactory: (connection: Connection) => connection.getRepository(UserOrm),
+    inject: [TYPEORM_CONNECTION],
+  },
+  {
+    provide: AREA_ORM,
+    useFactory: (connection: Connection) => connection.getRepository(AreaOrm),
     inject: [TYPEORM_CONNECTION],
   },
 ];

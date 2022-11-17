@@ -2,8 +2,8 @@ import { IdentifyUUID } from 'src/domain/value-objects/identify-uuid';
 
 export class BaseEntity {
   protected id: IdentifyUUID;
-  protected createdAt: Date;
-  protected updatedAt: Date;
+  protected createdAt = new Date();
+  protected updatedAt = new Date();
 
   protected fieldEspecial = {};
 
