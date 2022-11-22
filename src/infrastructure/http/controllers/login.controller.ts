@@ -1,8 +1,10 @@
 import { Controller, Post, UseGuards, Request } from '@nestjs/common';
+import { ApiTags } from '@nestjs/swagger';
 import { User } from 'src/domain/entities/user';
 import { GenerateTokenService } from 'src/infrastructure/authentication/generate-token.service';
 import { LocalAuthGuard } from 'src/infrastructure/authentication/local-auth.guard';
 
+@ApiTags('Login')
 @Controller('login')
 export class LoginController {
   constructor(private generateTokenService: GenerateTokenService) {}

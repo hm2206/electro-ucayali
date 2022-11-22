@@ -8,6 +8,7 @@ import {
   Put,
   Query,
 } from '@nestjs/common';
+import { ApiTags } from '@nestjs/swagger';
 import { of } from 'rxjs';
 import { MarcaCreateService } from 'src/application/marcas/marca-create.service';
 import { MarcaEditService } from 'src/application/marcas/marca-edit.service';
@@ -22,6 +23,7 @@ import { MarcaCreateDto } from '../dtos/marca-create.dto';
 import { MarcaEditDto } from '../dtos/marca-edit.dto';
 import { PaginateDto } from '../dtos/paginate.dto';
 
+@ApiTags('Marcas')
 @Controller('marcas')
 export class MarcasController {
   constructor(private unitOfWork: TypeormUnitOfWork) {}

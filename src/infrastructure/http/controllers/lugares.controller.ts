@@ -8,6 +8,7 @@ import {
   Put,
   Query,
 } from '@nestjs/common';
+import { ApiTags } from '@nestjs/swagger';
 import { of } from 'rxjs';
 import { LugarCreateService } from 'src/application/lugares/lugar-create.service';
 import { LugarEditService } from 'src/application/lugares/lugar-edit.service';
@@ -22,6 +23,7 @@ import { LugarCreateDto } from '../dtos/lugar-create.dto';
 import { LugarEditDto } from '../dtos/lugar-edit.dto';
 import { PaginateDto } from '../dtos/paginate.dto';
 
+@ApiTags('Lugares')
 @Controller('lugares')
 export class LugaresController {
   constructor(private unitOfWork: TypeormUnitOfWork) {}

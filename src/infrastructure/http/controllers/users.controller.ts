@@ -8,6 +8,7 @@ import {
   Put,
   Query,
 } from '@nestjs/common';
+import { ApiTags } from '@nestjs/swagger';
 import { of } from 'rxjs';
 import { UserCreateService } from 'src/application/users/user-create.service';
 import { UserEditRequest } from 'src/application/users/user-edit.service';
@@ -21,6 +22,7 @@ import { TypeormUnitOfWork } from 'src/infrastructure/database/unit-of-works/typ
 import { PaginateDto } from '../dtos/paginate.dto';
 import { UserCreateDto } from '../dtos/user-create.dto';
 
+@ApiTags('Usuarios')
 @Controller('users')
 export class UsersController {
   constructor(private unitOfWork: TypeormUnitOfWork) {}

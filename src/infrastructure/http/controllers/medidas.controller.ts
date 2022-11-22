@@ -8,6 +8,7 @@ import {
   Put,
   Query,
 } from '@nestjs/common';
+import { ApiTags } from '@nestjs/swagger';
 import { of } from 'rxjs';
 import { MedidaCreateService } from 'src/application/medidas/medida-create.service';
 import { MedidaEditService } from 'src/application/medidas/medida-edit.service';
@@ -22,6 +23,7 @@ import { MedidaCreateDto } from '../dtos/medida-create.dto';
 import { MedidaEditDto } from '../dtos/medida-edit.dto';
 import { PaginateDto } from '../dtos/paginate.dto';
 
+@ApiTags('Medidas')
 @Controller('medidas')
 export class MedidasController {
   constructor(private unitOfWork: TypeormUnitOfWork) {}

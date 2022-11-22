@@ -8,6 +8,7 @@ import {
   Put,
   Query,
 } from '@nestjs/common';
+import { ApiTags } from '@nestjs/swagger';
 import { of } from 'rxjs';
 import { AreaCreateService } from 'src/application/areas/area-create.service';
 import { AreaEditService } from 'src/application/areas/area-edit.service';
@@ -22,6 +23,7 @@ import { AreaCreateDto } from '../dtos/area-create.dto';
 import { AreaEditDto } from '../dtos/area-edit.dto';
 import { PaginateDto } from '../dtos/paginate.dto';
 
+@ApiTags('areas')
 @Controller('areas')
 export class AreasController {
   constructor(private unitOfWork: TypeormUnitOfWork) {}
