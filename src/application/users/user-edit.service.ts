@@ -1,7 +1,5 @@
 import { User } from 'src/domain/entities/user';
-import { EmailString } from 'src/domain/value-objects/email-string';
 import { IdentifyUUID } from 'src/domain/value-objects/identify-uuid';
-import { PasswordString } from 'src/domain/value-objects/password-string';
 import { IBaseServiceInterface } from 'src/shared/interfaces/base-service.interface';
 import { IUnitOfWorkInterface } from 'src/shared/interfaces/unit-of-work';
 
@@ -11,10 +9,8 @@ export class UserEditService implements IBaseServiceInterface {
   async execute(request: UserEditRequest) {
     const userRepository = this.unitOfWork.userRepository;
     const user = new User();
-    user.setEmail(request.email);
-    user.setPassword(request.password);
-    user.setIsAdmin(request.isAdmin);
-    user.setState(request.state);
+    user.load(request);
+    user.setId(request.id);
     await this.unitOfWork.start();
     return userRepository.save({
       id: user.getId(),
@@ -28,8 +24,8 @@ export class UserEditService implements IBaseServiceInterface {
 
 export class UserEditRequest {
   id: IdentifyUUID;
-  email: EmailString;
-  password: PasswordString;
+  email: string;
+  password: string;
   isAdmin: boolean;
   state: boolean;
 }

@@ -1,7 +1,7 @@
 import { NoneEmptyStringException } from '../exceptions/none-empty-string.exception';
 
 export class NoneEmptyString {
-  private _value: string;
+  protected _value: string;
   constructor(_value: string) {
     if (_value === '') throw new NoneEmptyStringException();
     this._value = _value;

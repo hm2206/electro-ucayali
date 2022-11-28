@@ -1,5 +1,4 @@
 import { Area } from 'src/domain/entities/area';
-import { NoneEmptyString } from 'src/domain/value-objects/none-empty-string';
 import { IBaseServiceInterface } from 'src/shared/interfaces/base-service.interface';
 import { IUnitOfWorkInterface } from 'src/shared/interfaces/unit-of-work';
 
@@ -9,8 +8,7 @@ export class AreaCreateService implements IBaseServiceInterface {
   async execute(request: AreaCreateRequest) {
     const areaRepository = this.unitOfWork.areaRepository;
     const area = new Area();
-    area.setName(request.name);
-    area.setDescription(request.description);
+    area.load(request);
     await this.unitOfWork.start();
     return areaRepository.save({
       id: area.getId(),
@@ -21,6 +19,6 @@ export class AreaCreateService implements IBaseServiceInterface {
 }
 
 export class AreaCreateRequest {
-  name: NoneEmptyString;
-  description: NoneEmptyString;
+  name: string;
+  description: string;
 }

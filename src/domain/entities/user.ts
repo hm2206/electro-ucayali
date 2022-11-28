@@ -1,6 +1,5 @@
 import { BaseEntity } from 'src/shared/base.entity';
 import { EmailString } from '../value-objects/email-string';
-import { IdentifyUUID } from '../value-objects/identify-uuid';
 import { PasswordString } from '../value-objects/password-string';
 
 export class User extends BaseEntity {
@@ -10,18 +9,12 @@ export class User extends BaseEntity {
   private isAdmin: boolean;
   private state: boolean;
 
-  protected fieldEspecial = {
-    id: IdentifyUUID,
-    email: EmailString,
-    password: PasswordString,
-  };
-
   setEmail(email: EmailString) {
     this.email = email;
   }
 
   getEmail() {
-    return this.email.getValue();
+    return this.email.toString();
   }
 
   setPassword(password: PasswordString) {
@@ -29,7 +22,7 @@ export class User extends BaseEntity {
   }
 
   getPassword() {
-    return this.password.getValue();
+    return this.password.toString();
   }
 
   setCodeRecovery(codeRecovery: string) {

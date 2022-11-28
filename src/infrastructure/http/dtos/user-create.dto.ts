@@ -1,20 +1,25 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { Transform } from 'class-transformer';
-import { IsBoolean, IsDefined } from 'class-validator';
+import {
+  IsBoolean,
+  IsDefined,
+  IsEmail,
+  MaxLength,
+  MinLength,
+} from 'class-validator';
 import { UserCreateRequest } from 'src/application/users/user-create.service';
-import { EmailString } from 'src/domain/value-objects/email-string';
 import { PasswordString } from 'src/domain/value-objects/password-string';
 
 export class UserCreateDto extends UserCreateRequest {
   @ApiProperty()
   @IsDefined()
-  @Transform(({ value }) => new EmailString(value))
-  email: EmailString;
+  @IsEmail()
+  email: string;
 
   @ApiProperty()
   @IsDefined()
-  @Transform(({ value }) => new PasswordString(value))
-  password: PasswordString;
+  @MinLength(PasswordString.minLength)
+  @MaxLength(PasswordString.maxLength)
+  password: string;
 
   @ApiProperty()
   @IsDefined()

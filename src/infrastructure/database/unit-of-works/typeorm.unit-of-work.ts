@@ -8,6 +8,8 @@ import { MarcaOrm } from '../orm/marca.orm';
 import { UserOrm } from '../orm/user.orm';
 import { AreaOrm } from '../orm/area.orm';
 import { LugarOrm } from '../orm/lugar.orm';
+import { NotaOrm } from '../orm/nota.orm';
+import { ItemOrm } from '../orm/item.orm';
 
 @Injectable()
 export class TypeormUnitOfWork implements IUnitOfWorkInterface {
@@ -17,6 +19,8 @@ export class TypeormUnitOfWork implements IUnitOfWorkInterface {
   public userRepository: Repository<UserOrm>;
   public areaRepository: Repository<AreaOrm>;
   public lugarRepository: Repository<LugarOrm>;
+  public notaRepository: Repository<NotaOrm>;
+  public itemRepository: Repository<ItemOrm>;
 
   constructor(
     @Inject(TYPEORM_CONNECTION)
@@ -64,6 +68,8 @@ export class TypeormUnitOfWork implements IUnitOfWorkInterface {
     this.userRepository = this.getManager().getRepository(UserOrm);
     this.areaRepository = this.getManager().getRepository(AreaOrm);
     this.lugarRepository = this.getManager().getRepository(LugarOrm);
+    this.notaRepository = this.getManager().getRepository(NotaOrm);
+    this.itemRepository = this.getManager().getRepository(ItemOrm);
   }
 
   getManager(): EntityManager {

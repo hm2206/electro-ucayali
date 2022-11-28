@@ -6,6 +6,8 @@ export interface IUnitOfWorkInterface {
   userRepository: Repository<any>;
   areaRepository: Repository<any>;
   lugarRepository: Repository<any>;
+  notaRepository: Repository<any>;
+  itemRepository: Repository<any>;
   start(): Promise<void>;
   complete(cb: () => any): Promise<any>;
   getRepository(repository: any): Repository<any>;
