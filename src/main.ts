@@ -6,6 +6,8 @@ import { ValidateHttpPipe } from './shared/pipes/validate-http.pipe';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
+
+  app.enableCors({ origin: true });
   app.setGlobalPrefix('api');
   app.useGlobalFilters(new HttpExceptionFilter());
   app.useGlobalPipes(new ValidateHttpPipe());
