@@ -1,4 +1,5 @@
 import { User } from 'src/domain/entities/user';
+import { PasswordString } from 'src/domain/value-objects/password-string';
 import { IBaseServiceInterface } from 'src/shared/interfaces/base-service.interface';
 import { IUnitOfWorkInterface } from 'src/shared/interfaces/unit-of-work';
 
@@ -9,6 +10,7 @@ export class UserCreateService implements IBaseServiceInterface {
     const userRepository = this.unitOfWork.userRepository;
     const user = new User();
     user.load(request);
+    user.setPassword(new PasswordString(request.password));
     user.enabled();
     await this.unitOfWork.start();
     return userRepository.save({

@@ -1,31 +1,33 @@
 import { User } from 'src/domain/entities/user';
-import { IdentifyUUID } from 'src/domain/value-objects/identify-uuid';
+import { PasswordString } from 'src/domain/value-objects/password-string';
 import { IBaseServiceInterface } from 'src/shared/interfaces/base-service.interface';
 import { IUnitOfWorkInterface } from 'src/shared/interfaces/unit-of-work';
+import { UserFindRequest } from './user-find.service';
+import { EmailString } from 'src/domain/value-objects/email-string';
 
 export class UserEditService implements IBaseServiceInterface {
   constructor(private unitOfWork: IUnitOfWorkInterface) {}
 
-  async execute(request: UserEditRequest) {
+  async execute(params: UserFindRequest, request: UserEditRequest) {
     const userRepository = this.unitOfWork.userRepository;
     const user = new User();
-    user.load(request);
-    user.setId(request.id);
+    user.setId(params.id);
+    user.setEmail(request.email);
+    user.setIsAdmin(request.isAdmin);
+    user.setState(request.state);
+    // actualizamos contraseña
+    if (request.password) {
+      user.setPassword(request.password);
+    }
+    // save user
     await this.unitOfWork.start();
-    return userRepository.save({
-      id: user.getId(),
-      email: user.getEmail(),
-      password: user.getPassword(),
-      isAdmin: user.getIsAdmin(),
-      state: user.getState(),
-    });
+    return userRepository.save(user);
   }
 }
 
-export class UserEditRequest {
-  id: IdentifyUUID;
-  email: string;
-  password: string;
+export interface UserEditRequest {
+  email: EmailString;
+  password?: PasswordString;
   isAdmin: boolean;
   state: boolean;
 }

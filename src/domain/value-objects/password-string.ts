@@ -29,6 +29,10 @@ export class PasswordString {
     return this._value;
   }
 
+  getTextPlain(): string {
+    return this.textPlain;
+  }
+
   compareHash(hash: string): boolean {
     return bcrypt.compareSync(this.textPlain, hash);
   }

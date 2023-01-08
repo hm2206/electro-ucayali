@@ -3,26 +3,26 @@ import { EmailString } from '../value-objects/email-string';
 import { PasswordString } from '../value-objects/password-string';
 
 export class User extends BaseEntity {
-  private email: EmailString;
-  private password: PasswordString;
+  private email: string;
+  private password: string;
   private codeRecovery: string;
   private isAdmin: boolean;
   private state: boolean;
 
   setEmail(email: EmailString) {
-    this.email = email;
+    this.email = email.getValue();
   }
 
   getEmail() {
-    return this.email.toString();
+    return this.email;
   }
 
   setPassword(password: PasswordString) {
-    this.password = password;
+    this.password = password.toString();
   }
 
   getPassword() {
-    return this.password.toString();
+    return this.password;
   }
 
   setCodeRecovery(codeRecovery: string) {

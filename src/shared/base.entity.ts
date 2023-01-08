@@ -3,8 +3,8 @@ import { IdentifyUUID } from 'src/domain/value-objects/identify-uuid';
 
 export class BaseEntity {
   protected id: string;
-  protected createdAt = new Date();
-  protected updatedAt = new Date();
+  protected createdAt: Date;
+  protected updatedAt: Date;
 
   constructor() {
     this.id = new IdentifyUUID().toString();
@@ -37,5 +37,9 @@ export class BaseEntity {
   load(partial: Partial<any>) {
     const classNew = plainToClassFromExist(this, partial);
     Object.assign(this, classNew);
+  }
+
+  toJSON() {
+    return Object.assign({}, this);
   }
 }
