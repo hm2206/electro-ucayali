@@ -11,6 +11,7 @@ export class ValidateHttpPipe implements PipeTransform {
     const object = plainToClass(metatype, value);
     const errors = await validate(object, {
       whitelist: true,
+      transform: true,
     });
 
     if (!errors.length) return object;

@@ -1,7 +1,13 @@
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
-import { Transform } from 'class-transformer';
-import { IsNumber, IsOptional, IsString } from 'class-validator';
+import { Transform, Type } from 'class-transformer';
+import {
+  IsNumber,
+  IsOptional,
+  IsString,
+  ValidateNested,
+} from 'class-validator';
 import { Paginate } from 'src/shared/utils/paginate';
+import { OrderDto } from './order.dto';
 
 export class PaginateDto extends Paginate {
   @ApiProperty()
@@ -18,4 +24,10 @@ export class PaginateDto extends Paginate {
   @IsOptional()
   @IsString()
   querySearch?: string;
+
+  @ApiPropertyOptional()
+  @IsOptional()
+  @ValidateNested({ each: true })
+  @Type(() => OrderDto)
+  orders: OrderDto<any>[];
 }

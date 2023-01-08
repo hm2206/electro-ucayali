@@ -14,6 +14,6 @@ export class UserFindService implements IBaseServiceInterface {
   }
 }
 
-export class UserFindRequest {
+export interface UserFindRequest {
   id: IdentifyUUID;
 }

@@ -10,6 +10,13 @@ export class MarcaPaginateService implements IBaseServiceInterface {
   async execute(request: MarcaPaginateRequest): Promise<Pagination<MarcaOrm>> {
     const marcaRepository = this.unitOfWork.marcaRepository;
     const queryBuilder = marcaRepository.createQueryBuilder();
+    // filters
+    if (request.querySearch) {
+      queryBuilder.andWhere(
+        `(name like '%${request.querySearch}%' OR description like '%${request.querySearch}%')`,
+      );
+    }
+    // response
     return paginate<MarcaOrm>(queryBuilder, request);
   }
 }

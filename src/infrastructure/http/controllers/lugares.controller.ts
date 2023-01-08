@@ -21,7 +21,7 @@ import { IdentifyUUID } from 'src/domain/value-objects/identify-uuid';
 import { TypeormUnitOfWork } from 'src/infrastructure/database/unit-of-works/typeorm.unit-of-work';
 import { LugarCreateDto } from '../dtos/lugar-create.dto';
 import { LugarEditDto } from '../dtos/lugar-edit.dto';
-import { PaginateDto } from '../dtos/paginate.dto';
+import { PaginateDto } from '../../../shared/dtos/paginate.dto';
 
 @ApiTags('Lugares')
 @Controller('lugares')

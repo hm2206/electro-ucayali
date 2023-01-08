@@ -21,7 +21,7 @@ import { IdentifyUUID } from 'src/domain/value-objects/identify-uuid';
 import { TypeormUnitOfWork } from 'src/infrastructure/database/unit-of-works/typeorm.unit-of-work';
 import { MarcaCreateDto } from '../dtos/marca-create.dto';
 import { MarcaEditDto } from '../dtos/marca-edit.dto';
-import { PaginateDto } from '../dtos/paginate.dto';
+import { PaginateDto } from '../../../shared/dtos/paginate.dto';
 
 @ApiTags('Marcas')
 @Controller('marcas')

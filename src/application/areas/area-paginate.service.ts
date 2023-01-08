@@ -10,6 +10,13 @@ export class AreaPaginateService implements IBaseServiceInterface {
   async execute(request: AreaPaginateRequest): Promise<Pagination<AreaOrm>> {
     const areaRepository = this.unitOfWork.areaRepository;
     const queryBuilder = areaRepository.createQueryBuilder();
+    // filters
+    if (request.querySearch) {
+      queryBuilder.andWhere(
+        `(name like '%${request.querySearch}%' OR description like '%${request.querySearch}%')`,
+      );
+    }
+    // response
     return paginate<AreaOrm>(queryBuilder, request);
   }
 }

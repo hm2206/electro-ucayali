@@ -12,6 +12,13 @@ export class MedidaPaginateService implements IBaseServiceInterface {
   ): Promise<Pagination<MedidaOrm>> {
     const medidaRepository = this.unitOfWork.medidaRepository;
     const queryBuilder = medidaRepository.createQueryBuilder();
+    // filter
+    if (request.querySearch) {
+      queryBuilder.andWhere(
+        `(name like '%${request.querySearch}%' OR description like '%${request.querySearch}%')`,
+      );
+    }
+    // response
     return paginate<MedidaOrm>(queryBuilder, request);
   }
 }

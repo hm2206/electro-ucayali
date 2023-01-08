@@ -1,26 +1,14 @@
-import {
-  Body,
-  Controller,
-  Get,
-  Param,
-  ParseUUIDPipe,
-  Post,
-  Put,
-  Query,
-} from '@nestjs/common';
+import { Body, Controller, Get, Param, Post, Put, Query } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 import { of } from 'rxjs';
 import { UserCreateService } from 'src/application/users/user-create.service';
 import { UserEditRequest } from 'src/application/users/user-edit.service';
-import {
-  UserFindRequest,
-  UserFindService,
-} from 'src/application/users/user-find.service';
+import { UserFindService } from 'src/application/users/user-find.service';
 import { UserPaginateService } from 'src/application/users/user-paginate.service';
-import { IdentifyUUID } from 'src/domain/value-objects/identify-uuid';
 import { TypeormUnitOfWork } from 'src/infrastructure/database/unit-of-works/typeorm.unit-of-work';
-import { PaginateDto } from '../dtos/paginate.dto';
+import { PaginateDto } from '../../../shared/dtos/paginate.dto';
 import { UserCreateDto } from '../dtos/user-create.dto';
+import { UserFindDto } from '../dtos/user-find.dto';
 
 @ApiTags('Usuarios')
 @Controller('users')
@@ -46,10 +34,8 @@ export class UsersController {
   }
 
   @Get(':id')
-  async show(@Param('id', ParseUUIDPipe) id: string) {
+  async show(@Param() request: UserFindDto) {
     const service = new UserFindService(this.unitOfWork);
-    const request = new UserFindRequest();
-    request.id = new IdentifyUUID(id);
     const result = await this.unitOfWork.complete(() =>
       service.execute(request),
     );
@@ -57,9 +43,9 @@ export class UsersController {
   }
 
   @Put(':id')
-  async update(@Param('id') id: string, @Body() request: UserEditRequest) {
+  async update(@Param() params: UserFindDto, @Body() request: UserEditRequest) {
     const service = new UserFindService(this.unitOfWork);
-    request.id = new IdentifyUUID(id);
+    request.id = params.id;
     const result = await this.unitOfWork.complete(() =>
       service.execute(request),
     );

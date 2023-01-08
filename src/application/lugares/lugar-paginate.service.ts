@@ -10,6 +10,13 @@ export class LugarPaginateService implements IBaseServiceInterface {
   async execute(request: LugarPaginateRequest): Promise<Pagination<LugarOrm>> {
     const lugarRepository = this.unitOfWork.lugarRepository;
     const queryBuilder = lugarRepository.createQueryBuilder();
+    // filter
+    if (request.querySearch) {
+      queryBuilder.andWhere(
+        `(name like '%${request.querySearch}%' OR description like '%${request.querySearch}%')`,
+      );
+    }
+    // response
     return paginate<LugarOrm>(queryBuilder, request);
   }
 }
