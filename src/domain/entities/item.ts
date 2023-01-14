@@ -5,7 +5,7 @@ import { Nota } from './nota';
 import { Producto } from './producto';
 
 export class Item extends BaseEntity {
-  private codePatrimonial: NumberString;
+  private codePatrimonial: string;
   private amount: number;
   private producto: Producto;
   private medida: Medida;
@@ -16,7 +16,7 @@ export class Item extends BaseEntity {
   }
 
   setCodePatrimonial(codePatrimonial: NumberString) {
-    this.codePatrimonial = codePatrimonial;
+    this.codePatrimonial = codePatrimonial.getValue();
   }
 
   getAmount() {

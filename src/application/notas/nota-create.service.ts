@@ -10,6 +10,7 @@ import {
   ItemCreateRequest,
   ItemCreateService,
 } from '../items/item-create.service';
+import { NoneEmptyString } from 'src/domain/value-objects/none-empty-string';
 
 export class NotaCreateService implements IBaseServiceInterface {
   constructor(private unifOfWork: IUnitOfWorkInterface) {}
@@ -22,7 +23,11 @@ export class NotaCreateService implements IBaseServiceInterface {
     lugar.setId(new IdentifyUUID(request.lugarId));
 
     const nota = new Nota();
-    nota.load(request);
+    nota.setCode(new NoneEmptyString(request.code));
+    nota.setDocumentCrp(new NoneEmptyString(request.documentCrp));
+    nota.setDate(request.date);
+    nota.setType(request.type);
+    nota.setObservation(request.observation);
     nota.setArea(area);
     nota.setLugar(lugar);
 
@@ -35,16 +40,7 @@ export class NotaCreateService implements IBaseServiceInterface {
     });
 
     const notaRepository = this.unifOfWork.notaRepository;
-    return notaRepository.save({
-      id: nota.getId(),
-      code: nota.getCode(),
-      date: nota.getDate(),
-      documentCrp: nota.getDocumentCrp(),
-      type: nota.getType(),
-      areaId: nota.getArea().getId(),
-      lugarId: nota.getLugar().getId(),
-      observation: nota.getObservation(),
-    });
+    return notaRepository.save(nota);
   }
 }
 

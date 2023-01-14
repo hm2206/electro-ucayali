@@ -6,9 +6,9 @@ import { Item } from './item';
 import { Lugar } from './lugar';
 
 export class Nota extends BaseEntity {
-  private code: NoneEmptyString;
+  private code: string;
   private date: Date;
-  private documentCrp: NoneEmptyString;
+  private documentCrp: string;
   private type: NotaTypeEnum;
   private observation?: string;
   private area: Area;
@@ -16,11 +16,11 @@ export class Nota extends BaseEntity {
   private items: Item[] = [];
 
   setCode(code: NoneEmptyString) {
-    this.code = code;
+    this.code = code.getValue();
   }
 
   getCode() {
-    return this.code.toString();
+    return this.code;
   }
 
   setDate(date: Date) {
@@ -32,11 +32,11 @@ export class Nota extends BaseEntity {
   }
 
   setDocumentCrp(documentCrp: NoneEmptyString) {
-    this.documentCrp = documentCrp;
+    this.documentCrp = documentCrp.getValue();
   }
 
   getDocumentCrp() {
-    return this.documentCrp.toString();
+    return this.documentCrp;
   }
 
   setType(type: NotaTypeEnum) {

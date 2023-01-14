@@ -2,22 +2,22 @@ import { BaseEntity } from 'src/shared/base.entity';
 import { NoneEmptyString } from '../value-objects/none-empty-string';
 
 export class Marca extends BaseEntity {
-  private name: NoneEmptyString;
-  private description: NoneEmptyString;
+  private name: string;
+  private description: string;
 
   setName(name: NoneEmptyString) {
-    this.name = name;
+    this.name = name.getValue();
   }
 
   getName() {
-    return this.name.getValue();
+    return this.name;
   }
 
   setDescription(description: NoneEmptyString) {
-    this.description = description;
+    this.description = description.getValue();
   }
 
   getDescription() {
-    return this.description.getValue();
+    return this.description;
   }
 }

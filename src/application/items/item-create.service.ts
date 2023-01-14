@@ -3,6 +3,7 @@ import { Medida } from 'src/domain/entities/medida';
 import { Nota } from 'src/domain/entities/nota';
 import { Producto } from 'src/domain/entities/producto';
 import { IdentifyUUID } from 'src/domain/value-objects/identify-uuid';
+import { NumberString } from 'src/domain/value-objects/number-string';
 import { IBaseServiceInterface } from 'src/shared/interfaces/base-service.interface';
 import { IUnitOfWorkInterface } from 'src/shared/interfaces/unit-of-work';
 
@@ -21,22 +22,14 @@ export class ItemCreateService implements IBaseServiceInterface {
     const nota = new Nota();
     nota.setId(new IdentifyUUID(request.notaId));
 
-    item.load(request);
+    item.setCodePatrimonial(new NumberString(request.codePatrimonial));
+    item.setAmount(request.amount);
     item.setMedida(medida);
     item.setProducto(producto);
     item.setNota(nota);
 
     const itemRepostitory = this.unitOfWork.itemRepository;
-    item.load(
-      await itemRepostitory.save({
-        id: item.getId(),
-        codePatrimonial: item.getCodePatrimonial(),
-        productoId: item.getProducto().getId(),
-        medidaId: item.getMedida().getId(),
-        amount: item.getAmount(),
-        notaId: item.getNota().getId(),
-      }),
-    );
+    item.load(await itemRepostitory.save(item));
 
     return item;
   }
