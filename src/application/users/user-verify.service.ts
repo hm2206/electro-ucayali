@@ -1,4 +1,4 @@
-import { UnauthorizedException } from '@nestjs/common';
+import { NotFoundException, UnauthorizedException } from '@nestjs/common';
 import { PasswordString } from 'src/domain/value-objects/password-string';
 import { UserOrm } from 'src/infrastructure/database/orm/user.orm';
 import { IBaseServiceInterface } from 'src/shared/interfaces/base-service.interface';
@@ -12,6 +12,8 @@ export class UserVerifyService implements IBaseServiceInterface {
     const user: UserOrm = await userRepository.findOne({
       where: { email: request.username },
     });
+    // validar si existe
+    if (!user) throw new NotFoundException();
     const password = new PasswordString(request.password);
     const isValid = password.compareHash(user.password);
     if (!isValid) throw new UnauthorizedException();
