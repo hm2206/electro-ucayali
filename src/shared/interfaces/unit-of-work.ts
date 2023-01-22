@@ -8,6 +8,7 @@ export interface IUnitOfWorkInterface {
   lugarRepository: Repository<any>;
   notaRepository: Repository<any>;
   itemRepository: Repository<any>;
+  productoRepository: Repository<any>;
   start(): Promise<void>;
   complete(cb: () => any): Promise<any>;
   getRepository(repository: any): Repository<any>;

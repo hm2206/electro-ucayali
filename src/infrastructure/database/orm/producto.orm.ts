@@ -7,6 +7,7 @@ import {
   UpdateDateColumn,
 } from 'typeorm';
 import { MarcaOrm } from './marca.orm';
+import { MedidaOrm } from './medida.orm';
 
 @Entity('productos')
 export class ProductoOrm {
@@ -31,6 +32,9 @@ export class ProductoOrm {
   @Column('uuid')
   marcaId: string;
 
+  @Column('uuid')
+  medidaId: string;
+
   @CreateDateColumn()
   createdAt: Date;
 
@@ -39,4 +43,7 @@ export class ProductoOrm {
 
   @ManyToOne(() => MarcaOrm, (marca) => marca.productos)
   marca: MarcaOrm;
+
+  @ManyToOne(() => MedidaOrm, (medida) => medida.productos)
+  medida: MedidaOrm;
 }

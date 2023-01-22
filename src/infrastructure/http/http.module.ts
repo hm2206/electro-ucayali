@@ -9,6 +9,7 @@ import { MarcasController } from './controllers/marcas.controller';
 import { MedidasController } from './controllers/medidas.controller';
 import { NotasController } from './controllers/notas.controller';
 import { UsersController } from './controllers/users.controller';
+import { ProductosController } from './controllers/productos.controller';
 
 @Module({
   imports: [DatabaseModule, AuthenticationModule],
@@ -20,6 +21,7 @@ import { UsersController } from './controllers/users.controller';
     LugaresController,
     NotasController,
     LoginController,
+    ProductosController,
     AuthController,
   ],
 })

@@ -2,9 +2,11 @@ import {
   Column,
   CreateDateColumn,
   Entity,
+  OneToMany,
   PrimaryColumn,
   UpdateDateColumn,
 } from 'typeorm';
+import { ProductoOrm } from './producto.orm';
 
 @Entity('medidas')
 export class MedidaOrm {
@@ -22,4 +24,7 @@ export class MedidaOrm {
 
   @UpdateDateColumn()
   updatedAt: Date;
+
+  @OneToMany(() => ProductoOrm, (producto) => producto.medida)
+  productos: ProductoOrm[];
 }
