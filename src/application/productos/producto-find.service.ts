@@ -7,7 +7,12 @@ export class ProductoFindService implements IBaseServiceInterface {
 
   async execute({ id }: ProductoFindRequest): Promise<any> {
     const productoRepository = this.unitOfWork.productoRepository;
-    return productoRepository.findOneOrFail({ where: { id: id.getValue() } });
+    return productoRepository
+      .createQueryBuilder('p')
+      .innerJoinAndSelect('p.marca', 'ma')
+      .innerJoinAndSelect('p.medida', 'me')
+      .where(`p.id = '${id.getValue()}'`)
+      .getOneOrFail();
   }
 }
 

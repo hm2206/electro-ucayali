@@ -11,11 +11,14 @@ export class ProductoPaginateService implements IBaseServiceInterface {
     request: ProductoPaginateRequest,
   ): Promise<Pagination<ProductoOrm>> {
     const productoRepository = this.unitOfWork.productoRepository;
-    const queryBuilder = productoRepository.createQueryBuilder();
+    const queryBuilder = productoRepository
+      .createQueryBuilder('p')
+      .innerJoinAndSelect('p.marca', 'ma')
+      .innerJoinAndSelect('p.medida', 'me');
     // filter
     if (request.querySearch) {
       queryBuilder.andWhere(
-        `(code like '%${request.querySearch}%' name like '%${request.querySearch}%' OR description like '%${request.querySearch}%')`,
+        `(p.code like '%${request.querySearch}%' p.name like '%${request.querySearch}%' OR p.description like '%${request.querySearch}%')`,
       );
     }
     // response
