@@ -28,7 +28,7 @@ export class NotaCreateDto extends NotaCreateRequest {
   @IsString()
   documentCrp: string;
 
-  @ApiProperty()
+  @ApiProperty({ enum: NotaTypeEnum })
   @IsDefined()
   @IsEnum(NotaTypeEnum)
   type: NotaTypeEnum;
