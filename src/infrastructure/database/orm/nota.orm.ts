@@ -18,8 +18,8 @@ export class NotaOrm {
   @Column('date')
   date: Date;
 
-  @Column()
-  documentCrp: string;
+  @Column({ nullable: true })
+  documentCrp?: string;
 
   @Column({ type: 'enum', enum: NotaTypeEnum })
   type: NotaTypeEnum;

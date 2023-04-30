@@ -1,4 +1,4 @@
-import { ApiProperty } from '@nestjs/swagger';
+import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 import { Type } from 'class-transformer';
 import {
   IsDefined,
@@ -27,6 +27,11 @@ export class ProductoEditDto extends ProductoEditRequest {
   @IsDefined()
   @IsString()
   code: string;
+
+  @ApiPropertyOptional()
+  @IsOptional()
+  @IsString()
+  codePatrimonial?: string;
 
   @ApiProperty()
   @IsDefined()

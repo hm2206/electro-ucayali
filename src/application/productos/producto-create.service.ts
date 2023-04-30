@@ -12,6 +12,7 @@ export class ProductoCreateService implements IBaseServiceInterface {
     const productoRepository = this.unitOfWork.productoRepository;
     const producto = new Producto();
     producto.setCode(new NoneEmptyString(request.code));
+    producto.setCodePatrimonial(request.codePatrimonial);
     producto.setName(new NoneEmptyString(request.name));
     producto.setDescription(request.description);
     producto.setStock(request.stock);
@@ -25,6 +26,7 @@ export class ProductoCreateService implements IBaseServiceInterface {
 
 export class ProductoCreateRequest {
   code: string;
+  codePatrimonial?: string;
   name: string;
   description?: string;
   stock: number;

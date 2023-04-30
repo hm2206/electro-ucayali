@@ -17,6 +17,9 @@ export class ProductoOrm {
   @Column({ unique: true })
   code: string;
 
+  @Column({ nullable: true })
+  codePatrimonial: string;
+
   @Column({ unique: true })
   name: string;
 

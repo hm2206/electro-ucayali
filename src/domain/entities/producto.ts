@@ -6,6 +6,7 @@ import { Marca } from './marca';
 
 export class Producto extends BaseEntity {
   private code: string;
+  private codePatrimonial?: string;
   private name: string;
   private description?: string;
   private stock: number;
@@ -19,6 +20,14 @@ export class Producto extends BaseEntity {
 
   getCode() {
     return this.code;
+  }
+
+  setCodePatrimonial(codePatrimonial?: string) {
+    this.codePatrimonial = codePatrimonial;
+  }
+
+  getCodePatrimonial() {
+    return this.codePatrimonial;
   }
 
   setName(name: NoneEmptyString) {

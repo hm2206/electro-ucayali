@@ -8,7 +8,7 @@ import { Lugar } from './lugar';
 export class Nota extends BaseEntity {
   private code: string;
   private date: Date;
-  private documentCrp: string;
+  private documentCrp?: string;
   private type: NotaTypeEnum;
   private observation?: string;
   private area: Area;
@@ -31,8 +31,8 @@ export class Nota extends BaseEntity {
     return this.date;
   }
 
-  setDocumentCrp(documentCrp: NoneEmptyString) {
-    this.documentCrp = documentCrp.getValue();
+  setDocumentCrp(documentCrp: string | undefined) {
+    this.documentCrp = documentCrp;
   }
 
   getDocumentCrp() {

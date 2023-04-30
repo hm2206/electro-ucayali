@@ -14,6 +14,7 @@ export class ProductoEditService implements IBaseServiceInterface {
     const producto = new Producto();
     producto.setId(request.id);
     producto.setCode(new NoneEmptyString(request.code));
+    producto.setCodePatrimonial(request.codePatrimonial);
     producto.setName(new NoneEmptyString(request.name));
     producto.setDescription(request.description);
     producto.setStock(request.stock);
@@ -28,6 +29,7 @@ export class ProductoEditService implements IBaseServiceInterface {
 export class ProductoEditRequest {
   id: IdentifyUUID;
   code: string;
+  codePatrimonial?: string;
   name: string;
   description?: string;
   stock: number;
