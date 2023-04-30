@@ -24,7 +24,7 @@ export class NotaCreateService implements IBaseServiceInterface {
 
     const nota = new Nota();
     nota.setCode(new NoneEmptyString(request.code));
-    nota.setDocumentCrp(new NoneEmptyString(request.documentCrp));
+    nota.setDocumentCrp(request.documentCrp);
     nota.setDate(request.date);
     nota.setType(request.type);
     nota.setObservation(request.observation);
