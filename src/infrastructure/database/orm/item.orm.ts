@@ -17,11 +17,11 @@ export class ItemOrm {
   @Column('uuid')
   medidaId: string;
 
-  @Column()
-  amount: number;
+  @Column('uuid')
+  notaId: string;
 
   @Column()
-  notaId: number;
+  amount: number;
 
   @CreateDateColumn()
   createdAt: Date;

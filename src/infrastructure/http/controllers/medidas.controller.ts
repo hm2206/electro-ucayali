@@ -2,6 +2,7 @@ import {
   Body,
   Controller,
   Get,
+  HttpException,
   Param,
   ParseUUIDPipe,
   Post,
@@ -40,10 +41,11 @@ export class MedidasController {
   @Post()
   async store(@Body() request: MedidaCreateDto) {
     const service = new MedidaCreateService(this.unitOfWork);
-    const result = await this.unitOfWork.complete(() =>
-      service.execute(request),
-    );
-    return of(result);
+    return this.unitOfWork
+      .complete(() => service.execute(request))
+      .catch((err) => {
+        throw new HttpException(err.message, err.status || 501);
+      });
   }
 
   @Get(':id')
@@ -61,9 +63,6 @@ export class MedidasController {
   async update(@Param('id') id: string, @Body() request: MedidaEditDto) {
     const service = new MedidaEditService(this.unitOfWork);
     request.id = new IdentifyUUID(id);
-    const result = await this.unitOfWork.complete(() =>
-      service.execute(request),
-    );
-    return of(result);
+    return this.unitOfWork.complete(() => service.execute(request));
   }
 }

@@ -30,7 +30,7 @@ export class NotaOrm {
   @Column('uuid')
   lugarId: string;
 
-  @Column('text')
+  @Column('text', { nullable: true })
   observation?: string;
 
   @CreateDateColumn()

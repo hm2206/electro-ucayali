@@ -3,6 +3,7 @@ import {
   IsDateString,
   IsDefined,
   IsEnum,
+  IsNumber,
   IsOptional,
   IsString,
   IsUUID,
@@ -51,6 +52,23 @@ export class NotaCreateDto extends NotaCreateRequest {
   @ApiProperty({ type: ItemCreateDto })
   @IsDefined()
   @ValidateNested({ each: true })
-  @Type(() => ItemCreateDto)
-  items: ItemCreateDto[];
+  @Type(() => NotaCreateItemDto)
+  items: NotaCreateItemDto[];
+}
+
+export class NotaCreateItemDto {
+  @ApiProperty()
+  @IsDefined()
+  @IsNumber()
+  amount: number;
+
+  @ApiProperty()
+  @IsDefined()
+  @IsUUID(4)
+  productoId: string;
+
+  @ApiProperty()
+  @IsDefined()
+  @IsUUID(4)
+  medidaId: string;
 }
