@@ -1,23 +1,13 @@
 import { BaseEntity } from 'src/shared/base.entity';
-import { NumberString } from '../value-objects/number-string';
 import { Medida } from './medida';
 import { Nota } from './nota';
 import { Producto } from './producto';
 
 export class Item extends BaseEntity {
-  private codePatrimonial: string;
   private amount: number;
   private producto: Producto;
   private medida: Medida;
   private nota: Nota;
-
-  getCodePatrimonial() {
-    return this.codePatrimonial.toString();
-  }
-
-  setCodePatrimonial(codePatrimonial: NumberString) {
-    this.codePatrimonial = codePatrimonial.getValue();
-  }
 
   getAmount() {
     return this.amount;

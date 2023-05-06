@@ -11,9 +11,6 @@ export class ItemOrm {
   @PrimaryColumn('uuid')
   id: string;
 
-  @Column()
-  codePatrimonial: string;
-
   @Column('uuid')
   productoId: string;
 

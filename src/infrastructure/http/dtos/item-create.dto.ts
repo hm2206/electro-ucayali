@@ -1,13 +1,8 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsDefined, IsNumber, IsString, IsUUID } from 'class-validator';
+import { IsDefined, IsNumber, IsUUID } from 'class-validator';
 import { ItemCreateRequest } from 'src/application/items/item-create.service';
 
 export class ItemCreateDto extends ItemCreateRequest {
-  @ApiProperty()
-  @IsDefined()
-  @IsString()
-  codePatrimonial: string;
-
   @ApiProperty()
   @IsDefined()
   @IsNumber()
