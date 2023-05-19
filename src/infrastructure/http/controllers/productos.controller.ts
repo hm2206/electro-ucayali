@@ -13,9 +13,7 @@ import { TypeormUnitOfWork } from 'src/infrastructure/database/unit-of-works/typ
 import { ProductoCreateDto } from '../dtos/producto-create.dto';
 import { ProductoCreateService } from 'src/application/productos/producto-create.service';
 import { of } from 'rxjs';
-import { Medida } from 'src/domain/entities/medida';
 import { IdentifyUUID } from 'src/domain/value-objects/identify-uuid';
-import { Marca } from 'src/domain/entities/marca';
 import { PaginateDto } from 'src/shared/dtos/paginate.dto';
 import { ProductoPaginateService } from 'src/application/productos/producto-paginate.service';
 import {
@@ -42,12 +40,6 @@ export class ProductosController {
   @Post()
   async store(@Body() request: ProductoCreateDto) {
     const service = new ProductoCreateService(this.unitOfWork);
-    const marca = new Marca();
-    const medida = new Medida();
-    marca.setId(new IdentifyUUID(request.marcaId));
-    medida.setId(new IdentifyUUID(request.medidaId));
-    request.medida = medida;
-    request.marca = marca;
     const result = await this.unitOfWork.complete(
       async () => await service.execute(request),
     );

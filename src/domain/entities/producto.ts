@@ -1,8 +1,6 @@
 import { BaseEntity } from 'src/shared/base.entity';
-import { Medida } from './medida';
 import { NoneEmptyString } from '../value-objects/none-empty-string';
 import { ProductoItemInterface } from '../interfaces/producto-item.interface';
-import { Marca } from './marca';
 
 export class Producto extends BaseEntity {
   private code: string;
@@ -11,8 +9,8 @@ export class Producto extends BaseEntity {
   private description?: string;
   private stock: number;
   private attributos: ProductoItemInterface[];
-  private medida: Medida;
-  private marca: Marca;
+  private medidaId: string;
+  private marcaId: string;
 
   setCode(code: NoneEmptyString) {
     this.code = code.getValue();
@@ -62,19 +60,19 @@ export class Producto extends BaseEntity {
     return this.attributos;
   }
 
-  setMedida(medida: Medida) {
-    this.medida = medida;
+  setMedidaId(medidaId: string) {
+    this.medidaId = medidaId;
   }
 
-  getMedida() {
-    return this.medida;
+  getMedidaId() {
+    return this.medidaId;
   }
 
-  setMarca(marca: Marca) {
-    this.marca = marca;
+  setMarcaId(marcaId: string) {
+    this.marcaId = marcaId;
   }
 
-  getMarca() {
-    return this.marca;
+  getMarcaId() {
+    return this.marcaId;
   }
 }
