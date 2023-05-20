@@ -18,7 +18,7 @@ export class ProductoPaginateService implements IBaseServiceInterface {
     // filter
     if (request.querySearch) {
       queryBuilder.andWhere(
-        `(p.code like '%${request.querySearch}%' p.name like '%${request.querySearch}%' OR p.description like '%${request.querySearch}%')`,
+        `(UPPER(p.code) like UPPER('%${request.querySearch}%') OR UPPER(p.name) like UPPER('%${request.querySearch}%') OR UPPER(p.description) like UPPER('%${request.querySearch}%'))`,
       );
     }
     // response
