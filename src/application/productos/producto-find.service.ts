@@ -11,6 +11,7 @@ export class ProductoFindService implements IBaseServiceInterface {
       .createQueryBuilder('p')
       .innerJoinAndSelect('p.marca', 'ma')
       .innerJoinAndSelect('p.medida', 'me')
+      .leftJoinAndSelect('p.detalle', 'de')
       .where(`p.id = '${id.getValue()}'`)
       .getOneOrFail();
   }

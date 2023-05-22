@@ -14,7 +14,8 @@ export class ProductoPaginateService implements IBaseServiceInterface {
     const queryBuilder = productoRepository
       .createQueryBuilder('p')
       .innerJoinAndSelect('p.marca', 'ma')
-      .innerJoinAndSelect('p.medida', 'me');
+      .innerJoinAndSelect('p.medida', 'me')
+      .leftJoinAndSelect('p.detalle', 'de');
     // filter
     if (request.querySearch) {
       queryBuilder.andWhere(
