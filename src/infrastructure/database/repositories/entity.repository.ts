@@ -9,6 +9,7 @@ import { ProductoOrm } from '../orm/producto.orm';
 import { SerieOrm } from '../orm/serie.orm';
 import { UserOrm } from '../orm/user.orm';
 import { TYPEORM_CONNECTION } from '../providers/typeorm.provider';
+import { DetalleOrm } from '../orm/detalle.orm';
 
 export const MARCA_ORM = 'MARCA_ORM';
 export const MEDIDA_ORM = 'MEDIDA_ORM';
@@ -19,6 +20,7 @@ export const PRODUCTO_ORM = 'PRODUCTO_ORM';
 export const NOTA_ORM = 'NOTA_ORM';
 export const ITEM_ORM = 'ITEM_ORM';
 export const SERIE_ORM = 'SERIE_ORM';
+export const DETAIL_ORM = 'DETAIL_ORM';
 
 export const entitiesRepositories = [
   {
@@ -65,6 +67,12 @@ export const entitiesRepositories = [
   {
     provide: SERIE_ORM,
     useFactory: (connection: Connection) => connection.getRepository(SerieOrm),
+    inject: [TYPEORM_CONNECTION],
+  },
+  {
+    provide: DETAIL_ORM,
+    useFactory: (connection: Connection) =>
+      connection.getRepository(DetalleOrm),
     inject: [TYPEORM_CONNECTION],
   },
 ];

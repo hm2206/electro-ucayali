@@ -3,11 +3,13 @@ import {
   CreateDateColumn,
   Entity,
   ManyToOne,
+  OneToOne,
   PrimaryColumn,
   UpdateDateColumn,
 } from 'typeorm';
 import { MarcaOrm } from './marca.orm';
 import { MedidaOrm } from './medida.orm';
+import { DetalleOrm } from './detalle.orm';
 
 @Entity('productos')
 export class ProductoOrm {
@@ -43,6 +45,9 @@ export class ProductoOrm {
 
   @UpdateDateColumn()
   updatedAt: Date;
+
+  @OneToOne(() => DetalleOrm, (detail) => detail.producto)
+  detalle: DetalleOrm;
 
   @ManyToOne(() => MarcaOrm, (marca) => marca.productos)
   marca: MarcaOrm;
