@@ -10,6 +10,7 @@ import { MedidasController } from './controllers/medidas.controller';
 import { NotasController } from './controllers/notas.controller';
 import { UsersController } from './controllers/users.controller';
 import { ProductosController } from './controllers/productos.controller';
+import { DetallesController } from './controllers/detalles.controller';
 
 @Module({
   imports: [DatabaseModule, AuthenticationModule],
@@ -22,6 +23,7 @@ import { ProductosController } from './controllers/productos.controller';
     NotasController,
     LoginController,
     ProductosController,
+    DetallesController,
     AuthController,
   ],
 })
