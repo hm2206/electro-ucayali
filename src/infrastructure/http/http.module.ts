@@ -11,6 +11,8 @@ import { NotasController } from './controllers/notas.controller';
 import { UsersController } from './controllers/users.controller';
 import { ProductosController } from './controllers/productos.controller';
 import { DetallesController } from './controllers/detalles.controller';
+import { MotivosController } from './controllers/motivos.controller';
+import { SituacionesController } from './controllers/situaciones.controller';
 
 @Module({
   imports: [DatabaseModule, AuthenticationModule],
@@ -23,6 +25,8 @@ import { DetallesController } from './controllers/detalles.controller';
     NotasController,
     LoginController,
     ProductosController,
+    MotivosController,
+    SituacionesController,
     DetallesController,
     AuthController,
   ],

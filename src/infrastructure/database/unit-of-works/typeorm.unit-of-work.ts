@@ -12,6 +12,8 @@ import { NotaOrm } from '../orm/nota.orm';
 import { ItemOrm } from '../orm/item.orm';
 import { ProductoOrm } from '../orm/producto.orm';
 import { DetalleOrm } from '../orm/detalle.orm';
+import { MotivoOrm } from '../orm/motivo.orm';
+import { SituacionOrm } from '../orm/situacion.orm';
 
 @Injectable()
 export class TypeormUnitOfWork implements IUnitOfWorkInterface {
@@ -25,6 +27,8 @@ export class TypeormUnitOfWork implements IUnitOfWorkInterface {
   public itemRepository: Repository<ItemOrm>;
   public productoRepository: Repository<ProductoOrm>;
   public detailRepository: Repository<DetalleOrm>;
+  public motivoRepository: Repository<MotivoOrm>;
+  public situacionRepository: Repository<SituacionOrm>;
 
   constructor(
     @Inject(TYPEORM_CONNECTION)
@@ -76,6 +80,8 @@ export class TypeormUnitOfWork implements IUnitOfWorkInterface {
     this.itemRepository = this.getManager().getRepository(ItemOrm);
     this.productoRepository = this.getManager().getRepository(ProductoOrm);
     this.detailRepository = this.getManager().getRepository(DetalleOrm);
+    this.motivoRepository = this.getManager().getRepository(MotivoOrm);
+    this.situacionRepository = this.getManager().getRepository(SituacionOrm);
   }
 
   getManager(): EntityManager {

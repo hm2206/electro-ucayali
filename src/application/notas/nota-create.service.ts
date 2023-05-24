@@ -11,6 +11,7 @@ export class NotaCreateService implements IBaseServiceInterface {
   async execute(request: NotaCreateRequest): Promise<any> {
     const nota = {
       id: new IdentifyUUID().toString(),
+      code: new IdentifyUUID().toString(),
       ...request,
     };
 
@@ -36,7 +37,6 @@ export class NotaCreateService implements IBaseServiceInterface {
 }
 
 export class NotaCreateRequest {
-  code: string;
   date: Date;
   documentCrp: string;
   type: NotaTypeEnum;
