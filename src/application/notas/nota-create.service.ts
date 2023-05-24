@@ -10,9 +10,9 @@ export class NotaCreateService implements IBaseServiceInterface {
 
   async execute(request: NotaCreateRequest): Promise<any> {
     const nota = {
+      ...request,
       id: new IdentifyUUID().toString(),
       code: new IdentifyUUID().toString(),
-      ...request,
     };
 
     if (!request.items.length) throw new RequiredItemsException();
@@ -43,6 +43,8 @@ export class NotaCreateRequest {
   observation?: string;
   areaId: string;
   lugarId: string;
+  motivoId?: string;
+  situacionId?: string;
   items: {
     productoId: string;
     medidaId: string;

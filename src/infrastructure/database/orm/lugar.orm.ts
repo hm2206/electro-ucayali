@@ -2,9 +2,11 @@ import {
   Column,
   CreateDateColumn,
   Entity,
+  OneToMany,
   PrimaryColumn,
   UpdateDateColumn,
 } from 'typeorm';
+import { NotaOrm } from './nota.orm';
 
 @Entity('lugares')
 export class LugarOrm {
@@ -22,4 +24,7 @@ export class LugarOrm {
 
   @UpdateDateColumn()
   updatedAt: Date;
+
+  @OneToMany(() => NotaOrm, (nota) => nota.lugar)
+  notas: NotaOrm[];
 }

@@ -3,9 +3,14 @@ import {
   Column,
   CreateDateColumn,
   Entity,
+  ManyToOne,
   PrimaryColumn,
   UpdateDateColumn,
 } from 'typeorm';
+import { AreaOrm } from './area.orm';
+import { LugarOrm } from './lugar.orm';
+import { MotivoOrm } from './motivo.orm';
+import { SituacionOrm } from './situacion.orm';
 
 @Entity('notas')
 export class NotaOrm {
@@ -30,6 +35,12 @@ export class NotaOrm {
   @Column('uuid')
   lugarId: string;
 
+  @Column('uuid', { nullable: true })
+  motivoId?: string;
+
+  @Column('uuid', { nullable: true })
+  situacionId?: string;
+
   @Column('text', { nullable: true })
   observation?: string;
 
@@ -38,4 +49,16 @@ export class NotaOrm {
 
   @UpdateDateColumn()
   updatedAt: Date;
+
+  @ManyToOne(() => AreaOrm, (area) => area.notas)
+  area: AreaOrm;
+
+  @ManyToOne(() => LugarOrm, (lugar) => lugar.notas)
+  lugar: LugarOrm;
+
+  @ManyToOne(() => MotivoOrm, (motivo) => motivo.notas)
+  motivo: MotivoOrm;
+
+  @ManyToOne(() => SituacionOrm, (situacion) => situacion.notas)
+  situacion: SituacionOrm;
 }

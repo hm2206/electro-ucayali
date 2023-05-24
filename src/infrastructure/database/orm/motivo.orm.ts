@@ -3,9 +3,11 @@ import {
   Column,
   CreateDateColumn,
   Entity,
+  OneToMany,
   PrimaryColumn,
   UpdateDateColumn,
 } from 'typeorm';
+import { NotaOrm } from './nota.orm';
 
 @Entity('motivos')
 export class MotivoOrm implements MotivoEntity {
@@ -23,4 +25,7 @@ export class MotivoOrm implements MotivoEntity {
 
   @UpdateDateColumn()
   updatedAt: Date;
+
+  @OneToMany(() => NotaOrm, (nota) => nota.motivo)
+  notas: NotaOrm[];
 }

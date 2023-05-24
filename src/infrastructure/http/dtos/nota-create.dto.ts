@@ -49,6 +49,16 @@ export class NotaCreateDto extends NotaCreateRequest {
   @IsUUID()
   lugarId: string;
 
+  @ApiPropertyOptional()
+  @IsOptional()
+  @IsUUID()
+  motivoId?: string;
+
+  @ApiPropertyOptional()
+  @IsOptional()
+  @IsUUID()
+  situacionId?: string;
+
   @ApiProperty({ type: ItemCreateDto })
   @IsDefined()
   @ValidateNested({ each: true })

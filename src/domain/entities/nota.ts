@@ -11,4 +11,6 @@ export interface NotaEntity {
   observation?: string;
   area: Area;
   lugar: Lugar;
+  motivoId?: string;
+  situacionId?: string;
 }
