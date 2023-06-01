@@ -33,6 +33,21 @@ export class ProductoEditDto extends ProductoEditRequest {
   @IsString()
   codePatrimonial?: string;
 
+  @ApiPropertyOptional()
+  @IsOptional()
+  @IsString()
+  serie?: string;
+
+  @ApiPropertyOptional()
+  @IsOptional()
+  @IsString()
+  potencia?: string;
+
+  @ApiPropertyOptional()
+  @IsOptional()
+  @IsNumber()
+  year?: number;
+
   @ApiProperty()
   @IsDefined()
   @IsString()

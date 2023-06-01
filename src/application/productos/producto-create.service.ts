@@ -11,10 +11,12 @@ export class ProductoCreateService implements IBaseServiceInterface {
     const producto = new Producto();
     producto.setCode(new NoneEmptyString(request.code));
     producto.setCodePatrimonial(request.codePatrimonial);
+    producto.setSerie(request.serie);
+    producto.setPotencia(request.potencia);
+    producto.setYear(request.year);
     producto.setName(new NoneEmptyString(request.name));
     producto.setDescription(request.description);
     producto.setStock(request.stock);
-    producto.setAttributos(request.attributos);
     producto.setMedidaId(request.medidaId);
     producto.setMarcaId(request.marcaId);
     await this.unitOfWork.start();
@@ -25,10 +27,12 @@ export class ProductoCreateService implements IBaseServiceInterface {
 export class ProductoCreateRequest {
   code: string;
   codePatrimonial?: string;
+  serie?: string;
+  potencia?: string;
+  year?: number;
   name: string;
   description?: string;
   stock: number;
-  attributos: any;
   medidaId: string;
   marcaId: string;
 }

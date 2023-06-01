@@ -1,26 +1,12 @@
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
-import { Type } from 'class-transformer';
 import {
   IsDefined,
   IsNumber,
   IsOptional,
   IsString,
   IsUUID,
-  ValidateNested,
 } from 'class-validator';
 import { ProductoCreateRequest } from 'src/application/productos/producto-create.service';
-import { ProductoItemInterface } from 'src/domain/interfaces/producto-item.interface';
-
-class ProductoItem implements ProductoItemInterface {
-  @ApiProperty()
-  @IsDefined()
-  @IsString()
-  name: string;
-
-  @ApiProperty()
-  @IsDefined()
-  value: any;
-}
 
 export class ProductoCreateDto extends ProductoCreateRequest {
   @ApiProperty()
@@ -32,6 +18,21 @@ export class ProductoCreateDto extends ProductoCreateRequest {
   @IsOptional()
   @IsString()
   codePatrimonial?: string;
+
+  @ApiPropertyOptional()
+  @IsOptional()
+  @IsString()
+  serie?: string;
+
+  @ApiPropertyOptional()
+  @IsOptional()
+  @IsString()
+  potencia?: string;
+
+  @ApiPropertyOptional()
+  @IsOptional()
+  @IsNumber()
+  year?: number;
 
   @ApiProperty()
   @IsDefined()
@@ -59,10 +60,4 @@ export class ProductoCreateDto extends ProductoCreateRequest {
   @IsDefined()
   @IsNumber()
   stock: number;
-
-  @ApiProperty()
-  @IsDefined()
-  @ValidateNested()
-  @Type(() => ProductoItem)
-  attributos: ProductoItem[];
 }

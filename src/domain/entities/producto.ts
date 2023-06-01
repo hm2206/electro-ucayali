@@ -1,14 +1,15 @@
 import { BaseEntity } from 'src/shared/base.entity';
 import { NoneEmptyString } from '../value-objects/none-empty-string';
-import { ProductoItemInterface } from '../interfaces/producto-item.interface';
 
 export class Producto extends BaseEntity {
   private code: string;
+  private serie?: string;
+  private potencia?: string;
+  private year?: number;
   private codePatrimonial?: string;
   private name: string;
   private description?: string;
   private stock: number;
-  private attributos: ProductoItemInterface[];
   private medidaId: string;
   private marcaId: string;
 
@@ -26,6 +27,30 @@ export class Producto extends BaseEntity {
 
   getCodePatrimonial() {
     return this.codePatrimonial;
+  }
+
+  setSerie(serie?: string) {
+    this.serie = serie;
+  }
+
+  getSerie() {
+    return this.serie;
+  }
+
+  setPotencia(potencia?: string) {
+    this.potencia = potencia;
+  }
+
+  getPotencia() {
+    return this.potencia;
+  }
+
+  setYear(year?: number) {
+    this.year = year;
+  }
+
+  getYear() {
+    return this.year;
   }
 
   setName(name: NoneEmptyString) {
@@ -50,14 +75,6 @@ export class Producto extends BaseEntity {
 
   getStock() {
     return this.stock;
-  }
-
-  setAttributos(attributos: ProductoItemInterface[]) {
-    this.attributos = attributos;
-  }
-
-  getAttributos() {
-    return this.attributos;
   }
 
   setMedidaId(medidaId: string) {
