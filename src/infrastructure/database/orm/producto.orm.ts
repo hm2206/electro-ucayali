@@ -22,6 +22,15 @@ export class ProductoOrm {
   @Column({ nullable: true })
   codePatrimonial: string;
 
+  @Column({ nullable: true })
+  serie: string;
+
+  @Column({ nullable: true })
+  potencia: string;
+
+  @Column({ nullable: true })
+  year: number;
+
   @Column({ unique: true })
   name: string;
 
@@ -30,9 +39,6 @@ export class ProductoOrm {
 
   @Column()
   stock: number;
-
-  @Column('simple-json')
-  attributos: string;
 
   @Column('uuid')
   marcaId: string;
