@@ -12,6 +12,7 @@ export interface IUnitOfWorkInterface {
   detailRepository: Repository<any>;
   motivoRepository: Repository<any>;
   situacionRepository: Repository<any>;
+  secuenciaRepository: Repository<any>;
   start(): Promise<void>;
   complete(cb: () => any): Promise<any>;
   getRepository(repository: any): Repository<any>;

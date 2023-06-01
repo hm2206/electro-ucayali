@@ -4,15 +4,21 @@ import { RequiredItemsException } from 'src/shared/exceptions/required-items.exc
 import { IBaseServiceInterface } from 'src/shared/interfaces/base-service.interface';
 import { IUnitOfWorkInterface } from 'src/shared/interfaces/unit-of-work';
 import { ItemCreateService } from '../items/item-create.service';
+import { SecuenciaGenerarService } from '../secuencia/secuencia-generar.service';
+import { DateTime } from 'luxon';
 
 export class NotaCreateService implements IBaseServiceInterface {
   constructor(private unifOfWork: IUnitOfWorkInterface) {}
 
   async execute(request: NotaCreateRequest): Promise<any> {
+    const { notaRepository } = this.unifOfWork;
+    const secuenciaService = new SecuenciaGenerarService(this.unifOfWork);
+    const year = DateTime.now().year;
+
     const nota = {
       ...request,
       id: new IdentifyUUID().toString(),
-      code: new IdentifyUUID().toString(),
+      code: '',
     };
 
     if (!request.items.length) throw new RequiredItemsException();
@@ -30,7 +36,13 @@ export class NotaCreateService implements IBaseServiceInterface {
       ),
     );
 
-    const notaRepository = this.unifOfWork.notaRepository;
+    // generar código
+    const secuencia = await secuenciaService.execute({
+      type: request.type,
+      year,
+    });
+
+    nota.code = secuencia.formato;
     const data = await notaRepository.save(nota);
     return Object.assign(data, { items });
   }
