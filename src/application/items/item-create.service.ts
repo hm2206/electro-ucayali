@@ -23,8 +23,6 @@ export class ItemCreateService implements IBaseServiceInterface {
         ...request,
       };
 
-      console.log(payload);
-
       return itemRepostitory.save(payload);
     } catch (error) {
       throw new Error('No se pudo guardar');
