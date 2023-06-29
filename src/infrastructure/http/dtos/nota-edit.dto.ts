@@ -3,18 +3,13 @@ import {
   IsDateString,
   IsDefined,
   IsEnum,
-  IsNumber,
   IsOptional,
   IsString,
   IsUUID,
-  ValidateNested,
 } from 'class-validator';
-import { NotaCreateRequest } from 'src/application/notas/nota-create.service';
 import { NotaTypeEnum } from 'src/domain/enums/nota.enum';
-import { ItemCreateDto } from './item-create.dto';
-import { Type } from 'class-transformer';
 
-export class NotaCreateDto extends NotaCreateRequest {
+export class NotaEditDto {
   @ApiProperty()
   @IsDefined()
   @IsDateString()
@@ -54,27 +49,4 @@ export class NotaCreateDto extends NotaCreateRequest {
   @IsOptional()
   @IsUUID()
   situacionId?: string;
-
-  @ApiProperty({ type: ItemCreateDto })
-  @IsDefined()
-  @ValidateNested({ each: true })
-  @Type(() => NotaCreateItemDto)
-  items: NotaCreateItemDto[];
-}
-
-export class NotaCreateItemDto {
-  @ApiProperty()
-  @IsDefined()
-  @IsNumber()
-  amount: number;
-
-  @ApiProperty()
-  @IsDefined()
-  @IsUUID(4)
-  productoId: string;
-
-  @ApiProperty()
-  @IsDefined()
-  @IsUUID(4)
-  medidaId: string;
 }
