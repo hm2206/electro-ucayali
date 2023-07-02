@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Param, Post, Put } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post, Put, Query } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 import { of } from 'rxjs';
 import { NotaCreateService } from 'src/application/notas/nota-create.service';
@@ -14,11 +14,19 @@ import {
 } from 'src/application/notas/nota-edit.service';
 import { NotaFindService } from 'src/application/notas/nota-find.service';
 import { NotaEditDto } from '../dtos/nota-edit.dto';
+import { NotaPaginateService } from 'src/application/notas/nota-paginate.service';
+import { NotaPaginateDto } from '../dtos/nota-paginate.dto';
 
 @ApiTags('Notas')
 @Controller('notas')
 export class NotasController {
   constructor(private unitOfWork: TypeormUnitOfWork) {}
+
+  @Get()
+  async index(@Query() params: NotaPaginateDto) {
+    const service = new NotaPaginateService(this.unitOfWork);
+    return service.execute(params);
+  }
 
   @Post()
   async store(@Body() request: NotaCreateDto) {

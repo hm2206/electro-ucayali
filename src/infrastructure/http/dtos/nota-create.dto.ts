@@ -11,8 +11,24 @@ import {
 } from 'class-validator';
 import { NotaCreateRequest } from 'src/application/notas/nota-create.service';
 import { NotaTypeEnum } from 'src/domain/enums/nota.enum';
-import { ItemCreateDto } from './item-create.dto';
 import { Type } from 'class-transformer';
+
+export class NotaCreateItemDto {
+  @ApiProperty()
+  @IsDefined()
+  @IsNumber()
+  amount: number;
+
+  @ApiProperty()
+  @IsDefined()
+  @IsUUID(4)
+  productoId: string;
+
+  @ApiProperty()
+  @IsDefined()
+  @IsUUID(4)
+  medidaId: string;
+}
 
 export class NotaCreateDto extends NotaCreateRequest {
   @ApiProperty()
@@ -55,26 +71,9 @@ export class NotaCreateDto extends NotaCreateRequest {
   @IsUUID()
   situacionId?: string;
 
-  @ApiProperty({ type: ItemCreateDto })
+  @ApiProperty({ type: NotaCreateItemDto, isArray: true })
   @IsDefined()
   @ValidateNested({ each: true })
   @Type(() => NotaCreateItemDto)
   items: NotaCreateItemDto[];
-}
-
-export class NotaCreateItemDto {
-  @ApiProperty()
-  @IsDefined()
-  @IsNumber()
-  amount: number;
-
-  @ApiProperty()
-  @IsDefined()
-  @IsUUID(4)
-  productoId: string;
-
-  @ApiProperty()
-  @IsDefined()
-  @IsUUID(4)
-  medidaId: string;
 }
