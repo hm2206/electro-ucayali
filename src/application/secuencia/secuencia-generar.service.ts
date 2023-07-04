@@ -28,10 +28,10 @@ export class SecuenciaGenerarService implements IBaseServiceInterface {
     }
 
     secuencia.current = secuencia.current + 1;
-    const ceros = 10 - secuencia.current.length;
+    const ceros = 10 - `${secuencia.current}`.length;
     secuencia.formato = `${'0'.repeat(ceros)}${secuencia.current}`;
-    await secuenciaRepository.save(secuencia);
-    return secuencia;
+    console.log(secuencia);
+    return secuenciaRepository.save(secuencia);
   }
 }
 

@@ -23,19 +23,6 @@ export class NotaCreateService implements IBaseServiceInterface {
 
     if (!request.items.length) throw new RequiredItemsException();
 
-    const service = new ItemCreateService(this.unifOfWork);
-
-    const items = await Promise.all(
-      request.items.map((item) =>
-        service.execute({
-          notaId: nota.id,
-          productoId: item.productoId,
-          medidaId: item.medidaId,
-          amount: item.amount,
-        }),
-      ),
-    );
-
     // generar código
     const secuencia = await secuenciaService.execute({
       type: request.type,
@@ -44,6 +31,20 @@ export class NotaCreateService implements IBaseServiceInterface {
 
     nota.code = secuencia.formato;
     const data = await notaRepository.save(nota);
+
+    const service = new ItemCreateService(this.unifOfWork);
+
+    const items = await Promise.all(
+      request.items.map((item) =>
+        service.execute({
+          notaId: data.id,
+          productoId: item.productoId,
+          medidaId: item.medidaId,
+          amount: item.amount,
+        }),
+      ),
+    );
+
     return Object.assign(data, { items });
   }
 }
