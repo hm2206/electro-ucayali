@@ -7,11 +7,16 @@ export class NotaItemsService {
     const { notaRepository, itemRepository } = this.unitOfWork;
     const nota = await notaRepository.findOne({
       where: params,
-      relations: ['producto', 'medida', 'nota'],
     });
 
     if (!nota) throw new Error('No se encontró la nota');
-    return itemRepository.findBy({ notaId: nota.id });
+    const queryBuilder = itemRepository
+      .createQueryBuilder('i')
+      .innerJoinAndSelect('i.nota', 'n')
+      .innerJoinAndSelect('i.medida', 'm')
+      .innerJoinAndSelect('i.producto', 'p')
+      .where(`n."id" = '${nota.id}'`);
+    return queryBuilder.getMany();
   }
 }
 
