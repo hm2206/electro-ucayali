@@ -7,6 +7,7 @@ export class NotaItemsService {
     const { notaRepository, itemRepository } = this.unitOfWork;
     const nota = await notaRepository.findOne({
       where: params,
+      relations: ['producto', 'medida', 'nota'],
     });
 
     if (!nota) throw new Error('No se encontró la nota');
