@@ -2,9 +2,13 @@ import {
   Column,
   CreateDateColumn,
   Entity,
+  ManyToOne,
   PrimaryColumn,
   UpdateDateColumn,
 } from 'typeorm';
+import { ProductoOrm } from './producto.orm';
+import { MedidaOrm } from './medida.orm';
+import { NotaOrm } from './nota.orm';
 
 @Entity('items')
 export class ItemOrm {
@@ -28,4 +32,13 @@ export class ItemOrm {
 
   @UpdateDateColumn()
   updatedAt: Date;
+
+  @ManyToOne(() => ProductoOrm, (producto) => producto.items)
+  producto: ProductoOrm;
+
+  @ManyToOne(() => MedidaOrm, (medida) => medida.items)
+  medida: MedidaOrm;
+
+  @ManyToOne(() => NotaOrm, (nota) => nota.items)
+  nota: NotaOrm;
 }

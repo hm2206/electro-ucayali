@@ -4,6 +4,7 @@ import {
   CreateDateColumn,
   Entity,
   ManyToOne,
+  OneToMany,
   PrimaryColumn,
   UpdateDateColumn,
 } from 'typeorm';
@@ -11,6 +12,7 @@ import { AreaOrm } from './area.orm';
 import { LugarOrm } from './lugar.orm';
 import { MotivoOrm } from './motivo.orm';
 import { SituacionOrm } from './situacion.orm';
+import { ItemOrm } from './item.orm';
 
 @Entity('notas')
 export class NotaOrm {
@@ -61,4 +63,7 @@ export class NotaOrm {
 
   @ManyToOne(() => SituacionOrm, (situacion) => situacion.notas)
   situacion: SituacionOrm;
+
+  @OneToMany(() => ItemOrm, (item) => item.nota)
+  items: ItemOrm[];
 }

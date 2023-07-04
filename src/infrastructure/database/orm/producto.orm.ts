@@ -3,6 +3,7 @@ import {
   CreateDateColumn,
   Entity,
   ManyToOne,
+  OneToMany,
   OneToOne,
   PrimaryColumn,
   UpdateDateColumn,
@@ -10,6 +11,7 @@ import {
 import { MarcaOrm } from './marca.orm';
 import { MedidaOrm } from './medida.orm';
 import { DetalleOrm } from './detalle.orm';
+import { ItemOrm } from './item.orm';
 
 @Entity('productos')
 export class ProductoOrm {
@@ -60,4 +62,7 @@ export class ProductoOrm {
 
   @ManyToOne(() => MedidaOrm, (medida) => medida.productos)
   medida: MedidaOrm;
+
+  @OneToMany(() => ItemOrm, (item) => item.producto)
+  items: ItemOrm[];
 }
