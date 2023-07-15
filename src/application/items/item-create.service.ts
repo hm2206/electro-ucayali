@@ -33,6 +33,5 @@ export class ItemCreateService implements IBaseServiceInterface {
 export class ItemCreateRequest {
   amount: number;
   productoId: string;
-  medidaId: string;
   notaId: string;
 }

@@ -3,6 +3,5 @@ export interface ItemEntity {
   amount: number;
   price: number;
   productoId: string;
-  medidaId: string;
   notaId: string;
 }

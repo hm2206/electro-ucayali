@@ -23,11 +23,6 @@ export class NotaCreateItemDto {
   @IsDefined()
   @IsUUID(4)
   productoId: string;
-
-  @ApiProperty()
-  @IsDefined()
-  @IsUUID(4)
-  medidaId: string;
 }
 
 export class NotaCreateDto extends NotaCreateRequest {

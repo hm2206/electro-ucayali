@@ -39,7 +39,6 @@ export class NotaCreateService implements IBaseServiceInterface {
         service.execute({
           notaId: data.id,
           productoId: item.productoId,
-          medidaId: item.medidaId,
           amount: item.amount,
         }),
       ),
@@ -60,7 +59,6 @@ export class NotaCreateRequest {
   situacionId?: string;
   items: {
     productoId: string;
-    medidaId: string;
     amount: number;
   }[] = [];
 }

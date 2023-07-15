@@ -34,7 +34,6 @@ export interface NotaEditPayload {
   items: {
     id: string;
     productoId: string;
-    medidaId: string;
     amount: number;
   }[];
 }

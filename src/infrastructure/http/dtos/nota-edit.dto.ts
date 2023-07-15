@@ -27,11 +27,6 @@ export class NotaEditItemDto {
   @IsDefined()
   @IsUUID(4)
   productoId: string;
-
-  @ApiProperty()
-  @IsDefined()
-  @IsUUID(4)
-  medidaId: string;
 }
 
 export class NotaEditDto {

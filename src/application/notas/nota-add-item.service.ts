@@ -13,7 +13,6 @@ export class NotaAddItemService {
     return service.execute({
       notaId: nota.id,
       productoId: payload.productoId,
-      medidaId: payload.medidaId,
       amount: payload.amount,
     });
   }
@@ -25,6 +24,5 @@ export interface NotaAddItemParams {
 
 export interface NotaAddItemPayload {
   productoId: string;
-  medidaId: string;
   amount: number;
 }

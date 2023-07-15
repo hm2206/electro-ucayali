@@ -11,9 +11,4 @@ export class NotaAddItemDto {
   @IsDefined()
   @IsUUID(4)
   productoId: string;
-
-  @ApiProperty()
-  @IsDefined()
-  @IsUUID(4)
-  medidaId: string;
 }
