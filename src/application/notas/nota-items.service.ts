@@ -15,6 +15,8 @@ export class NotaItemsService {
       .innerJoinAndSelect('i.nota', 'n')
       .innerJoinAndSelect('i.medida', 'm')
       .innerJoinAndSelect('i.producto', 'p')
+      .innerJoinAndSelect('p.marca', 'ma')
+      .innerJoinAndSelect('p.medida', 'me')
       .where(`n."id" = '${nota.id}'`);
     return queryBuilder.getMany();
   }
