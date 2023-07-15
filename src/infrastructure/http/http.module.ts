@@ -13,6 +13,7 @@ import { ProductosController } from './controllers/productos.controller';
 import { DetallesController } from './controllers/detalles.controller';
 import { MotivosController } from './controllers/motivos.controller';
 import { SituacionesController } from './controllers/situaciones.controller';
+import { ItemController } from './controllers/item.controller';
 
 @Module({
   imports: [DatabaseModule, AuthenticationModule],
@@ -29,6 +30,7 @@ import { SituacionesController } from './controllers/situaciones.controller';
     SituacionesController,
     DetallesController,
     AuthController,
+    ItemController,
   ],
 })
 export class HttpModule {}
