@@ -6,7 +6,15 @@ export class NotaFindService {
 
   async execute(params: NotaEditParams) {
     const { notaRepository } = this.unifOfWork;
-    const nota: NotaEntity = await notaRepository.findOne({ where: params });
+    const queryBuilder = notaRepository
+      .createQueryBuilder('n')
+      .innerJoinAndSelect('n.area', 'a')
+      .innerJoinAndSelect('n.lugar', 'l')
+      .leftJoinAndSelect('n.motivo', 'm')
+      .leftJoinAndSelect('n.situacion', 's');
+    // filters
+    if (params.id) queryBuilder.andWhere(`n.id = '${params.id}'`);
+    const nota: NotaEntity = await queryBuilder.getOne();
     if (!nota) throw new Error('no se encontró la nota');
     return nota;
   }
