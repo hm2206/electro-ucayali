@@ -47,7 +47,7 @@ export class SituacionesController {
   }
 
   @Get(':id')
-  async show(@Param('id') params: SituacionFindRequest) {
+  async show(@Param() params: SituacionFindRequest) {
     const service = new SituacionFindService(this.unitOfWork);
     const result = await this.unitOfWork.complete(() =>
       service.execute(params),

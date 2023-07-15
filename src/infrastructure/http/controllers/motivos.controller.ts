@@ -47,12 +47,9 @@ export class MotivosController {
   }
 
   @Get(':id')
-  async show(@Param('id') params: MotivoFindRequest) {
+  async show(@Param() params: MotivoFindRequest) {
     const service = new MotivoFindService(this.unitOfWork);
-    const result = await this.unitOfWork.complete(() =>
-      service.execute(params),
-    );
-    return of(result);
+    return service.execute(params);
   }
 
   @Put(':id')
