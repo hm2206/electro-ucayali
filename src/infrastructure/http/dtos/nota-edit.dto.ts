@@ -1,13 +1,38 @@
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
+import { Type } from 'class-transformer';
 import {
   IsDateString,
   IsDefined,
   IsEnum,
+  IsNumber,
   IsOptional,
   IsString,
   IsUUID,
+  ValidateNested,
 } from 'class-validator';
 import { NotaTypeEnum } from 'src/domain/enums/nota.enum';
+
+export class NotaEditItemDto {
+  @ApiProperty()
+  @IsDefined()
+  @IsString()
+  id: string;
+
+  @ApiProperty()
+  @IsDefined()
+  @IsNumber()
+  amount: number;
+
+  @ApiProperty()
+  @IsDefined()
+  @IsUUID(4)
+  productoId: string;
+
+  @ApiProperty()
+  @IsDefined()
+  @IsUUID(4)
+  medidaId: string;
+}
 
 export class NotaEditDto {
   @ApiProperty()
@@ -49,4 +74,10 @@ export class NotaEditDto {
   @IsOptional()
   @IsUUID()
   situacionId?: string;
+
+  @ApiProperty({ type: NotaEditItemDto, isArray: true })
+  @IsDefined()
+  @ValidateNested({ each: true })
+  @Type(() => NotaEditItemDto)
+  items: NotaEditItemDto[];
 }

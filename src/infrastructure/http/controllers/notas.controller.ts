@@ -16,6 +16,8 @@ import { NotaFindService } from 'src/application/notas/nota-find.service';
 import { NotaEditDto } from '../dtos/nota-edit.dto';
 import { NotaPaginateService } from 'src/application/notas/nota-paginate.service';
 import { NotaPaginateDto } from '../dtos/nota-paginate.dto';
+import { NotaAddItemService } from 'src/application/notas/nota-add-item.service';
+import { NotaAddItemDto } from '../dtos/nota-add-item.dto';
 
 @ApiTags('Notas')
 @Controller('notas')
@@ -53,5 +55,14 @@ export class NotasController {
   async items(@Param() params: NotaItemParams) {
     const service = new NotaItemsService(this.unitOfWork);
     return service.execute(params);
+  }
+
+  @Post(':id/items')
+  async addItems(
+    @Param() params: NotaItemParams,
+    @Body() payload: NotaAddItemDto,
+  ) {
+    const service = new NotaAddItemService(this.unitOfWork);
+    return service.execute(params, payload);
   }
 }
