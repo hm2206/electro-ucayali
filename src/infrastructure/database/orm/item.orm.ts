@@ -18,9 +18,6 @@ export class ItemOrm {
   productoId: string;
 
   @Column('uuid')
-  medidaId: string;
-
-  @Column('uuid')
   notaId: string;
 
   @Column()

@@ -3,5 +3,4 @@ export interface ItemEntity {
   amount: number;
   price: number;
   productoId: string;
-  notaId: string;
 }
