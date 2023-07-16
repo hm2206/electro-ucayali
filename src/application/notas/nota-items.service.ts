@@ -13,7 +13,6 @@ export class NotaItemsService {
     const queryBuilder = itemRepository
       .createQueryBuilder('i')
       .innerJoinAndSelect('i.nota', 'n')
-      .innerJoinAndSelect('i.medida', 'm')
       .innerJoinAndSelect('i.producto', 'p')
       .innerJoinAndSelect('p.marca', 'ma')
       .innerJoinAndSelect('p.medida', 'me')
