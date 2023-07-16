@@ -8,7 +8,10 @@ export class SituacionEditService implements IBaseServiceInterface {
   async execute(params: SituacionFindRequest, request: SituacionEditRequest) {
     const { situacionRepository } = this.unitOfWork;
     await this.unitOfWork.start();
-    const situacion = await situacionRepository.findOne({ where: params });
+    const situacion = await situacionRepository.findOne({
+      where: params,
+    });
+    console.log(params);
     if (!situacion) throw new Error('No se encontró la situación');
     situacion.name = request.name;
     situacion.description = request.description;
