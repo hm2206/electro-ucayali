@@ -14,7 +14,7 @@ export class NotaEditService {
       await itemRepository.update(item.id, item);
     }
     // response
-    return notaRepository.update(nota.id, {
+    await notaRepository.update(nota.id, {
       date: payload.date,
       documentCrp: payload.documentCrp,
       type: payload.type,
@@ -24,6 +24,8 @@ export class NotaEditService {
       motivoId: payload.motivoId,
       situacionId: payload.situacionId,
     });
+    // response
+    return { updated: true };
   }
 }
 
