@@ -1,3 +1,5 @@
+import { ApiProperty } from '@nestjs/swagger';
+import { IsDefined } from 'class-validator';
 import { IBaseServiceInterface } from 'src/shared/interfaces/base-service.interface';
 import { IUnitOfWorkInterface } from 'src/shared/interfaces/unit-of-work';
 
@@ -20,5 +22,7 @@ export class ItemDeleteService implements IBaseServiceInterface {
 }
 
 export class ItemDeleteRequest {
+  @ApiProperty()
+  @IsDefined()
   id: string;
 }
