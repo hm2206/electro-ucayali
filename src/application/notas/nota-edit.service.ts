@@ -11,10 +11,19 @@ export class NotaEditService {
     if (!nota) throw new Error('no se encontró la nota');
     // save items
     for (const item of payload.items) {
-      await itemRepository.update(item.id, payload);
+      await itemRepository.update(item.id, item);
     }
     // response
-    return notaRepository.update(nota.id, payload);
+    return notaRepository.update(nota.id, {
+      date: payload.date,
+      documentCrp: payload.documentCrp,
+      type: payload.type,
+      observation: payload.observation,
+      areaId: payload.areaId,
+      lugarId: payload.lugarId,
+      motivoId: payload.motivoId,
+      situacionId: payload.situacionId,
+    });
   }
 }
 
