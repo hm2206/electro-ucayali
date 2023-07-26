@@ -4,6 +4,7 @@ import { IUnitOfWorkInterface } from "src/shared/interfaces/unit-of-work";
 import { Edge } from "edge.js";
 import { resolve } from "path";
 import { readFileSync } from "fs";
+import puppeteer from "puppeteer";
 
 export class NotaInformeReport {
   constructor(private unitOfWork: IUnitOfWorkInterface) { }
@@ -23,7 +24,18 @@ export class NotaInformeReport {
       items
     });
 
-    // return { nota }
-    return html;
+    const browser = await puppeteer.launch({ headless: 'new' });
+    const page = await browser.newPage();
+    await page.setContent(html);
+    return await page.pdf({
+      format: 'A4',
+      printBackground: true,
+      margin: {
+        left: '1px',
+        top: '1px',
+        right: '1px',
+        bottom: '1px'
+      }
+    });
   }
 }

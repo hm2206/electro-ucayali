@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Param, Post, Put, Query } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post, Put, Query, StreamableFile } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 import { of } from 'rxjs';
 import { NotaCreateService } from 'src/application/notas/nota-create.service';
@@ -70,6 +70,9 @@ export class NotasController {
   @Get(':id/informe.pdf')
   async reportInforme(@Param() params: NotaEditParams) {
     const report = new NotaInformeReport(this.unitOfWork);
-    return report.execute(params);
+    const buffer = await report.execute(params);
+    return new StreamableFile(buffer, {
+      type: 'application/pdf'
+    })
   }
 }

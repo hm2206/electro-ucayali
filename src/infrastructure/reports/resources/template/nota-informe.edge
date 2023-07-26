@@ -13,6 +13,10 @@
       font-family: Arial, Helvetica, sans-serif;
     }
 
+    html {
+      padding: 1em;
+    }
+
     .table {
       width: 100%;
       margin: 0;
@@ -199,7 +203,13 @@
       <tr>
         <th class="text-center">AUTORIZADO POR:</th>
         <th>AUTORIZADO:</th>
-        <th>ENTREGA:</th>
+        <th>
+          @if(nota.type == 'ENTRY')
+            ENTREGA:
+          @else
+            RECIBIDO:
+          @endif
+        </th>
       </tr>
     </thead>
     <tbody class="text-info text-center">
