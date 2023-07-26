@@ -18,11 +18,12 @@ import { NotaPaginateService } from 'src/application/notas/nota-paginate.service
 import { NotaPaginateDto } from '../dtos/nota-paginate.dto';
 import { NotaAddItemService } from 'src/application/notas/nota-add-item.service';
 import { NotaAddItemDto } from '../dtos/nota-add-item.dto';
+import { NotaInformeReport } from 'src/infrastructure/reports/nota-informe.report';
 
 @ApiTags('Notas')
 @Controller('notas')
 export class NotasController {
-  constructor(private unitOfWork: TypeormUnitOfWork) {}
+  constructor(private unitOfWork: TypeormUnitOfWork) { }
 
   @Get()
   async index(@Query() params: NotaPaginateDto) {
@@ -64,5 +65,11 @@ export class NotasController {
   ) {
     const service = new NotaAddItemService(this.unitOfWork);
     return service.execute(params, payload);
+  }
+
+  @Get(':id/informe.pdf')
+  async reportInforme(@Param() params: NotaEditParams) {
+    const report = new NotaInformeReport(this.unitOfWork);
+    return report.execute(params);
   }
 }

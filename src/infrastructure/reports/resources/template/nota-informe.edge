@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>NOTA INFORME</title>
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      font-family: Arial, Helvetica, sans-serif;
+    }
+
+    .table {
+      width: 100%;
+      margin: 0;
+      padding: 0;
+      border: none;
+      border-collapse: inherit;
+      border-spacing: 0;
+      border-color: inherit;
+      vertical-align: inherit;
+    }
+
+    .text-info {
+      font-size: 11px;
+    }
+
+    .text-title {
+      font-size: 13px;
+    }
+
+    .width-subtitle {
+      display: inline-block;
+      min-width: 100px;
+    }
+
+    .text-subrayado {
+      border-bottom: 1px dashed black;
+      display: inline-block;
+      width: 100px;
+      padding-top: 0.4em;
+    }
+
+    .logo {
+      width: 150px;
+    }
+
+    .table-item {
+      border: 1px solid black;
+    }
+
+    .table-item thead tr th {
+      border-right: 1px solid black;
+    }
+
+    .table-item thead tr th:last-child {
+      border-right: 0px;
+    }
+
+    .table-item tbody tr td {
+      border-top: 1px solid black;
+      border-right: 1px solid black;
+      padding-left: 0.3em;
+    }
+
+    .table-item tbody tr td:last-child {
+      border-right: 0px;
+    }
+
+    .text-center {
+      text-align: center;
+    }
+
+    .box-firma {
+      width: 200px;
+      border-bottom: 1px dashed black;
+      height: 100px;
+      margin: auto auto;
+    }
+  </style>
+
+</head>
+<body>
+  <table class="table">
+    <thead>
+      <tr>
+        <th>
+          <img class="logo" src="data:image/png;base64, {{urlImage}}" />
+        </th>
+        <th align="right">
+          @if(nota.type == 'ENTRY')
+            NOTA DE INGRESO DE MATERIAL DE ALMACÉN N° {{nota.code}}
+          @else
+            NOTA DE PEDIDO DE MATERIAL DEL ALMACÉN N° {{nota.code}}
+          @endif
+        </th>
+      </tr>
+    </thead>
+  </table>
+
+  <table class="table">
+    <thead>
+      <tr>
+        <td colspan="2"></td>
+        <td class="text-info"><b>SITUACION:</b> {{nota?.situacion?.name || ''}}</td>
+        <td class="text-info"><b>MOTIVO:</b> {{nota?.motivo?.name || ''}}</td>
+      </tr>
+    </thead>
+    <tbody class="text-title">
+      <tr>
+        <td>
+          <span class="width-subtitle">Fecha:</span> 
+        </td>
+        <td>
+          <span class="text-subrayado">{{nota.date}}</span>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          @if(nota.type == 'ENTRY')
+            <span class="width-subtitle">Área:</span>
+          @else
+            <span class="width-subtitle">Área Solicitante:</span>
+          @endif
+        </td>
+        <td> 
+          <span class="text-subrayado">{{nota.area?.name}}</span>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <span class="width-subtitle">CRP:</span>
+        </td>
+        <td>
+          <span class="text-subrayado">{{nota.documentCrp || ""}}</span>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          @if(nota.type == 'ENTRY')
+            <span class="width-subtitle">Lugar de desmontaje:</span>
+          @else
+            <span class="width-subtitle">Destino y/o Actividad:</span>
+          @endif
+        </td>
+        <td>
+          <span class="text-subrayado">{{nota.lugar?.name || ""}}</span>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <br />
+
+  <div style="min-height: 500px;">
+    <table class="table table-item">
+      <thead class="text-info">
+        <tr>
+          <th>ITEM</th>
+          <th>CÓDIGO</th>
+          <th>DESCRIPCIÓN DEL MATERIAL</th>
+          <th>UND.</th>
+          <th>CANTIDAD</th>
+        </tr>
+      </thead>
+      <tbody class="text-info">
+        @each((item, index) in items)
+          <tr>
+            <td>{{index + 1}}</td>
+            <td>{{item.producto?.code || 'N/A'}}</td>
+            <td>{{item.producto?.name || 'N/A'}}</td>
+            <td>{{item.producto?.medida?.name || 'N/A'}}</td>
+            <td>{{item.amount}}</td>
+          </tr>
+        @endeach
+      </tbody>
+    </table>
+    
+    <br />
+  
+    <table class="table">
+      <thead class="text-info">
+        <tr>
+          <th align="left">Observación:</th>
+          <td>{{nota.observation}}</td>
+        </tr>
+      </thead>
+    </table>
+  </div>
+
+
+  <br />
+
+  <table class="table">
+    <thead class="text-info text-center">
+      <tr>
+        <th class="text-center">AUTORIZADO POR:</th>
+        <th>AUTORIZADO:</th>
+        <th>ENTREGA:</th>
+      </tr>
+    </thead>
+    <tbody class="text-info text-center">
+      <tr>
+        <td>
+          <div class="box-firma"></div>
+          <div class="text-center">Firma y Sello Jefe de Depto.</div>
+        </td>
+        <td>
+          <div class="box-firma"></div>
+          <div class="text-center">Persona Autorizada</div>
+        </td>
+        <td>
+          <div class="box-firma"></div>
+          <div class="text-center">V°B° Almacen</div>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</body>
+</html>
