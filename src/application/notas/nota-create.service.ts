@@ -1,3 +1,4 @@
+import { DateTime } from 'luxon';
 import { NotaTypeEnum } from 'src/domain/enums/nota.enum';
 import { IdentifyUUID } from 'src/domain/value-objects/identify-uuid';
 import { RequiredItemsException } from 'src/shared/exceptions/required-items.exception';
@@ -5,21 +6,14 @@ import { IBaseServiceInterface } from 'src/shared/interfaces/base-service.interf
 import { IUnitOfWorkInterface } from 'src/shared/interfaces/unit-of-work';
 import { ItemCreateService } from '../items/item-create.service';
 import { SecuenciaGenerarService } from '../secuencia/secuencia-generar.service';
-import { DateTime } from 'luxon';
 
 export class NotaCreateService implements IBaseServiceInterface {
-  constructor(private unifOfWork: IUnitOfWorkInterface) {}
+  constructor(private unifOfWork: IUnitOfWorkInterface) { }
 
   async execute(request: NotaCreateRequest): Promise<any> {
     const { notaRepository } = this.unifOfWork;
     const secuenciaService = new SecuenciaGenerarService(this.unifOfWork);
     const year = DateTime.now().year;
-
-    const nota = {
-      ...request,
-      id: new IdentifyUUID().toString(),
-      code: '',
-    };
 
     if (!request.items.length) throw new RequiredItemsException();
 
@@ -29,9 +23,13 @@ export class NotaCreateService implements IBaseServiceInterface {
       year,
     });
 
-    nota.code = secuencia.formato;
-    const data = await notaRepository.save(nota);
+    const nota = {
+      ...request,
+      id: new IdentifyUUID().toString(),
+      code: secuencia.formato
+    };
 
+    const data = await notaRepository.save(nota);
     const service = new ItemCreateService(this.unifOfWork);
 
     const items = await Promise.all(
@@ -40,6 +38,7 @@ export class NotaCreateService implements IBaseServiceInterface {
           notaId: data.id,
           productoId: item.productoId,
           amount: item.amount,
+          isValid: request.type == NotaTypeEnum.EXIT
         }),
       ),
     );

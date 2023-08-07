@@ -2,14 +2,15 @@ import { BaseEntity } from 'src/shared/base.entity';
 import { NoneEmptyString } from '../value-objects/none-empty-string';
 
 export class Producto extends BaseEntity {
+  public id: string;
   private code: string;
   private serie?: string;
   private potencia?: string;
   private year?: number;
   private codePatrimonial?: string;
-  private name: string;
+  public name: string;
   private description?: string;
-  private stock: number;
+  public stock: number;
   private medidaId: string;
   private marcaId: string;
 
