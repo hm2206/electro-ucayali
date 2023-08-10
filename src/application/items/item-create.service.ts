@@ -24,8 +24,15 @@ export class ItemCreateService implements IBaseServiceInterface {
 
       // validar stock
       if (request.isValid) {
+
+        // valiadar stock cero
+        if (producto.stock <= 0) {
+          throw new Error(`No hay stock disponible para el producto: ${producto.name}`);
+        }
+
         const newStock = producto.stock - request.amount;
-        if (newStock <= 0) {
+
+        if (newStock < 0) {
           throw new Error(`El producto: ${producto.name} solo tiene ${producto.stock} en stock`);
         }
 
