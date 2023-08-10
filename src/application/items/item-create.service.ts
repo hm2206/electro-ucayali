@@ -17,11 +17,16 @@ export class ItemCreateService implements IBaseServiceInterface {
 
       if (!producto) throw new Error('No se encontró el producto');
 
+      // validar cantidad
+      if (request.amount <= 0) {
+        throw new Error(`La cantidad del producto: ${producto.name} debe ser mayor a cero`);
+      }
+
       // validar stock
       if (request.isValid) {
         const newStock = producto.stock - request.amount;
-        if (!newStock) {
-          throw new Error(`El producto: ${producto.name} solo tiene en ${producto.stock}`);
+        if (newStock <= 0) {
+          throw new Error(`El producto: ${producto.name} solo tiene ${producto.stock} en stock`);
         }
 
         producto.stock = newStock;
@@ -40,7 +45,7 @@ export class ItemCreateService implements IBaseServiceInterface {
 
       return itemRepository.save(payload);
     } catch (error) {
-      throw new Error('No se pudo guardar');
+      throw error;
     }
   }
 }
