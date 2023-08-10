@@ -11,39 +11,41 @@ export class NotaCreateService implements IBaseServiceInterface {
   constructor(private unifOfWork: IUnitOfWorkInterface) { }
 
   async execute(request: NotaCreateRequest): Promise<any> {
-    const { notaRepository } = this.unifOfWork;
     const secuenciaService = new SecuenciaGenerarService(this.unifOfWork);
     const year = DateTime.now().year;
 
     if (!request.items.length) throw new RequiredItemsException();
 
-    // generar código
-    const secuencia = await secuenciaService.execute({
-      type: request.type,
-      year,
+    return this.unifOfWork.complete(async () => {
+      const { notaRepository } = this.unifOfWork;
+      // generar código
+      const secuencia = await secuenciaService.execute({
+        type: request.type,
+        year,
+      });
+
+      const nota = {
+        ...request,
+        id: new IdentifyUUID().toString(),
+        code: secuencia.formato
+      };
+
+      const data = await notaRepository.save(nota);
+      const service = new ItemCreateService(this.unifOfWork);
+
+      const items = await Promise.all(
+        request.items.map((item) =>
+          service.execute({
+            notaId: data.id,
+            productoId: item.productoId,
+            amount: item.amount,
+            isValid: request.type == NotaTypeEnum.EXIT
+          }),
+        ),
+      );
+
+      return Object.assign(data, { items });
     });
-
-    const nota = {
-      ...request,
-      id: new IdentifyUUID().toString(),
-      code: secuencia.formato
-    };
-
-    const data = await notaRepository.save(nota);
-    const service = new ItemCreateService(this.unifOfWork);
-
-    const items = await Promise.all(
-      request.items.map((item) =>
-        service.execute({
-          notaId: data.id,
-          productoId: item.productoId,
-          amount: item.amount,
-          isValid: request.type == NotaTypeEnum.EXIT
-        }),
-      ),
-    );
-
-    return Object.assign(data, { items });
   }
 }
 

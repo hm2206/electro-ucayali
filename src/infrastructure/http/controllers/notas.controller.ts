@@ -1,29 +1,31 @@
 import { Body, Controller, Get, Param, Post, Put, Query, StreamableFile } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 import { of } from 'rxjs';
+import { NotaAddItemService } from 'src/application/notas/nota-add-item.service';
 import { NotaCreateService } from 'src/application/notas/nota-create.service';
-import { TypeormUnitOfWork } from 'src/infrastructure/database/unit-of-works/typeorm.unit-of-work';
-import { NotaCreateDto } from '../dtos/nota-create.dto';
-import {
-  NotaItemParams,
-  NotaItemsService,
-} from 'src/application/notas/nota-items.service';
 import {
   NotaEditParams,
   NotaEditService,
 } from 'src/application/notas/nota-edit.service';
 import { NotaFindService } from 'src/application/notas/nota-find.service';
-import { NotaEditDto } from '../dtos/nota-edit.dto';
+import {
+  NotaItemParams,
+  NotaItemsService,
+} from 'src/application/notas/nota-items.service';
 import { NotaPaginateService } from 'src/application/notas/nota-paginate.service';
-import { NotaPaginateDto } from '../dtos/nota-paginate.dto';
-import { NotaAddItemService } from 'src/application/notas/nota-add-item.service';
-import { NotaAddItemDto } from '../dtos/nota-add-item.dto';
+import { TypeormManualUnitOfWork } from 'src/infrastructure/database/unit-of-works/typeorm-manual.unit-of-work';
+import { TypeormUnitOfWork } from 'src/infrastructure/database/unit-of-works/typeorm.unit-of-work';
 import { NotaInformeReport } from 'src/infrastructure/reports/nota-informe.report';
+import { NotaAddItemDto } from '../dtos/nota-add-item.dto';
+import { NotaCreateDto } from '../dtos/nota-create.dto';
+import { NotaEditDto } from '../dtos/nota-edit.dto';
+import { NotaPaginateDto } from '../dtos/nota-paginate.dto';
 
 @ApiTags('Notas')
 @Controller('notas')
 export class NotasController {
-  constructor(private unitOfWork: TypeormUnitOfWork) { }
+  constructor(private unitOfWork: TypeormUnitOfWork,
+    private unitOfWorkManual: TypeormManualUnitOfWork) { }
 
   @Get()
   async index(@Query() params: NotaPaginateDto) {
@@ -33,7 +35,7 @@ export class NotasController {
 
   @Post()
   async store(@Body() request: NotaCreateDto) {
-    const service = new NotaCreateService(this.unitOfWork);
+    const service = new NotaCreateService(this.unitOfWorkManual);
     const result = await this.unitOfWork.complete(
       async () => await service.execute(request),
     );
