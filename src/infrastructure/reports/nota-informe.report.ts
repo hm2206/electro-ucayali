@@ -1,18 +1,32 @@
-import { NotaEditParams, NotaFindService } from "src/application/notas/nota-find.service";
-import { NotaItemsService } from "src/application/notas/nota-items.service";
-import { IUnitOfWorkInterface } from "src/shared/interfaces/unit-of-work";
-import { Edge } from "edge.js";
-import { resolve } from "path";
-import { readFileSync } from "fs";
-import puppeteer from "puppeteer";
+import {
+  NotaEditParams,
+  NotaFindService,
+} from 'src/application/notas/nota-find.service';
+import { NotaItemsService } from 'src/application/notas/nota-items.service';
+import { IUnitOfWorkInterface } from 'src/shared/interfaces/unit-of-work';
+import { Edge } from 'edge.js';
+import { resolve } from 'path';
+import { readFileSync } from 'fs';
+import puppeteer from 'puppeteer';
 
 export class NotaInformeReport {
-  constructor(private unitOfWork: IUnitOfWorkInterface) { }
+  constructor(private unitOfWork: IUnitOfWorkInterface) {}
 
   async execute(params: NotaEditParams) {
     const edge = new Edge({ cache: false });
-    edge.mount(resolve(__dirname, '../../../src/infrastructure/reports/resources/template'));
-    const urlImage = readFileSync(resolve(__dirname, '../../../src/infrastructure/reports/resources/images/logo.png'), 'base64');
+    edge.mount(
+      resolve(
+        __dirname,
+        '../../../src/infrastructure/reports/resources/template',
+      ),
+    );
+    const urlImage = readFileSync(
+      resolve(
+        __dirname,
+        '../../../src/infrastructure/reports/resources/images/logo.png',
+      ),
+      'base64',
+    );
     const notaFind = new NotaFindService(this.unitOfWork);
     const nota = await notaFind.execute(params);
     const notaItems = new NotaItemsService(this.unitOfWork);
@@ -21,10 +35,13 @@ export class NotaInformeReport {
     const html = await edge.render('nota-informe', {
       urlImage,
       nota,
-      items
+      items,
     });
 
-    const browser = await puppeteer.launch({ headless: 'new' });
+    const browser = await puppeteer.launch({
+      headless: 'new',
+      args: ['--no-sandbox'],
+    });
     const page = await browser.newPage();
     await page.setContent(html);
     return await page.pdf({
@@ -34,8 +51,8 @@ export class NotaInformeReport {
         left: '1px',
         top: '1px',
         right: '1px',
-        bottom: '1px'
-      }
+        bottom: '1px',
+      },
     });
   }
 }
