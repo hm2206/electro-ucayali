@@ -1,4 +1,13 @@
-import { Body, Controller, Get, Param, Post, Put, Query, StreamableFile } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  Param,
+  Post,
+  Put,
+  Query,
+  StreamableFile,
+} from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 import { of } from 'rxjs';
 import { NotaAddItemService } from 'src/application/notas/nota-add-item.service';
@@ -24,11 +33,14 @@ import { NotaPaginateDto } from '../dtos/nota-paginate.dto';
 @ApiTags('Notas')
 @Controller('notas')
 export class NotasController {
-  constructor(private unitOfWork: TypeormUnitOfWork,
-    private unitOfWorkManual: TypeormManualUnitOfWork) { }
+  constructor(
+    private unitOfWork: TypeormUnitOfWork,
+    private unitOfWorkManual: TypeormManualUnitOfWork,
+  ) {}
 
   @Get()
   async index(@Query() params: NotaPaginateDto) {
+    console.log(params);
     const service = new NotaPaginateService(this.unitOfWork);
     return service.execute(params);
   }
@@ -74,7 +86,7 @@ export class NotasController {
     const report = new NotaInformeReport(this.unitOfWork);
     const buffer = await report.execute(params);
     return new StreamableFile(buffer, {
-      type: 'application/pdf'
-    })
+      type: 'application/pdf',
+    });
   }
 }

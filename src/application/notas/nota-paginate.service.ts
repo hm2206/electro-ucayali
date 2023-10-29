@@ -16,6 +16,12 @@ export class NotaPaginateService {
     if (params.querySearch) {
       queryBuilder.andWhere(`n.documentCrp like '%${params.querySearch}%'`);
     }
+
+    if (params?.rangeDate) {
+      queryBuilder.andWhere(
+        `n.date BETWEEN '${params.rangeDate.dateStart}' AND '${params.rangeDate.dateOver}'`,
+      );
+    }
     // response
     return paginate(queryBuilder, params);
   }
@@ -25,4 +31,8 @@ export interface NotaPaginateParams {
   page: number;
   limit: number;
   querySearch?: string;
+  rangeDate?: {
+    dateStart: string;
+    dateOver: string;
+  };
 }
