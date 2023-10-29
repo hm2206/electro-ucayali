@@ -11,6 +11,8 @@
       margin: 0;
       padding: 0;
       font-family: Arial, Helvetica, sans-serif;
+      color: #263238;
+      text-transform: uppercase;
     }
 
     html {
@@ -28,6 +30,10 @@
       vertical-align: inherit;
     }
 
+    .text-center {
+      text-align: center;
+    }
+
     .text-info {
       font-size: 11px;
     }
@@ -39,17 +45,17 @@
     .width-subtitle {
       display: inline-block;
       min-width: 100px;
+      padding: 0.2em;
     }
 
-    .text-subrayado {
-      border-bottom: 1px dashed black;
+    .text-description {
       display: inline-block;
       width: 100px;
-      padding-top: 0.4em;
+      padding-left: 0.4em;
     }
 
     .logo {
-      width: 150px;
+      width: 250px;
     }
 
     .table-item {
@@ -84,6 +90,18 @@
       height: 100px;
       margin: auto auto;
     }
+    
+    .bg-title {
+      background: rgba(0, 0, 0, 0.1);
+    }
+
+    .bg-info {
+      background: rgba(0, 0, 0, 0.05);
+    }
+
+    .cell-title {
+      padding: 0.3em;
+    }
   </style>
 
 </head>
@@ -91,10 +109,13 @@
   <table class="table">
     <thead>
       <tr>
-        <th>
+        <th align="left">
           <img class="logo" src="data:image/png;base64, {{urlImage}}" />
         </th>
-        <th align="right">
+        <th></th>
+      </tr>
+      <tr>
+        <th colspan="2">
           @if(nota.type == 'ENTRY')
             NOTA DE INGRESO DE MATERIAL DE ALMACÉN N° {{nota.code}}
           @else
@@ -105,53 +126,55 @@
     </thead>
   </table>
 
+  <br />
+
   <table class="table">
     <thead>
       <tr>
         <td colspan="2"></td>
-        <td class="text-info"><b>SITUACION:</b> {{nota?.situacion?.name || ''}}</td>
-        <td class="text-info"><b>MOTIVO:</b> {{nota?.motivo?.name || ''}}</td>
+        <td class="text-info cell-title bg-info"><b>SITUACION:</b> {{nota?.situacion?.name || ''}}</td>
+        <td class="text-info cell-title bg-info"><b>MOTIVO:</b> {{nota?.motivo?.name || ''}}</td>
       </tr>
     </thead>
     <tbody class="text-title">
       <tr>
         <td>
-          <span class="width-subtitle">Fecha:</span> 
+          <span class="width-subtitle">FECHA:</span> 
         </td>
         <td>
-          <span class="text-subrayado">{{nota.date}}</span>
+          <span class="text-description">{{nota.date}}</span>
         </td>
       </tr>
       <tr>
         <td>
           @if(nota.type == 'ENTRY')
-            <span class="width-subtitle">Área:</span>
+            <span class="width-subtitle">ÁREA:</span>
           @else
-            <span class="width-subtitle">Área Solicitante:</span>
+            <span class="width-subtitle">ÁREA SOLICITANTE:</span>
           @endif
         </td>
         <td> 
-          <span class="text-subrayado">{{nota.area?.name}}</span>
+          <span class="text-description">{{nota.area?.name}}</span>
         </td>
       </tr>
       <tr>
         <td>
           <span class="width-subtitle">CRP:</span>
         </td>
-        <td>
-          <span class="text-subrayado">{{nota.documentCrp || ""}}</span>
+        <td colspan="2">
+          <span class="text-description">{{nota.documentCrp || ""}}</span>
         </td>
       </tr>
       <tr>
         <td>
           @if(nota.type == 'ENTRY')
-            <span class="width-subtitle">Lugar de desmontaje:</span>
+            <span class="width-subtitle">LUGAR DE DESMONTAJE:</span>
           @else
-            <span class="width-subtitle">Destino y/o Actividad:</span>
+            <span class="width-subtitle">DESTINO Y/O ACTIVIDAD:</span>
           @endif
         </td>
-        <td>
-          <span class="text-subrayado">{{nota.lugar?.name || ""}}</span>
+        <td colspan="2">
+          <span class="text-description">{{nota.lugar?.name || ""}}</span>
         </td>
       </tr>
     </tbody>
@@ -159,25 +182,25 @@
 
   <br />
 
-  <div style="min-height: 500px;">
+  <div style="min-height: 300px;">
     <table class="table table-item">
       <thead class="text-info">
         <tr>
-          <th>ITEM</th>
-          <th>CÓDIGO</th>
-          <th>DESCRIPCIÓN DEL MATERIAL</th>
-          <th>UND.</th>
-          <th>CANTIDAD</th>
+          <th class="cell-title bg-title">ITEM</th>
+          <th class="cell-title bg-title">CÓDIGO</th>
+          <th class="cell-title bg-title">DESCRIPCIÓN DEL MATERIAL</th>
+          <th class="cell-title bg-title">UND.</th>
+          <th class="cell-title bg-title">CANTIDAD</th>
         </tr>
       </thead>
       <tbody class="text-info">
         @each((item, index) in items)
           <tr>
-            <td>{{index + 1}}</td>
-            <td>{{item.producto?.code || 'N/A'}}</td>
-            <td>{{item.producto?.name || 'N/A'}}</td>
-            <td>{{item.producto?.medida?.name || 'N/A'}}</td>
-            <td>{{item.amount}}</td>
+            <td class="cell-title text-center">{{index + 1}}</td>
+            <td class="cell-title text-center">{{item.producto?.code || 'N/A'}}</td>
+            <td class="cell-title">{{item.producto?.name || 'N/A'}}</td>
+            <td class="cell-title text-center">{{item.producto?.medida?.name || 'N/A'}}</td>
+            <td class="cell-title text-center">{{item.amount}}</td>
           </tr>
         @endeach
       </tbody>
@@ -188,7 +211,7 @@
     <table class="table">
       <thead class="text-info">
         <tr>
-          <th align="left">Observación:</th>
+          <th align="left" width="100px">OBSERVACIÓN:</th>
           <td>{{nota.observation}}</td>
         </tr>
       </thead>
@@ -216,15 +239,15 @@
       <tr>
         <td>
           <div class="box-firma"></div>
-          <div class="text-center">Firma y Sello Jefe de Depto.</div>
+          <div class="text-center">FIRMA Y SELLO JEFE DE DEPTO.</div>
         </td>
         <td>
           <div class="box-firma"></div>
-          <div class="text-center">Persona Autorizada</div>
+          <div class="text-center">PERSONA AUTORIZADA</div>
         </td>
         <td>
           <div class="box-firma"></div>
-          <div class="text-center">V°B° Almacen</div>
+          <div class="text-center">V°B° ALMACEN</div>
         </td>
       </tr>
     </tbody>
