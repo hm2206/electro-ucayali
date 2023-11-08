@@ -1,6 +1,7 @@
 import {
   Body,
   Controller,
+  Delete,
   Get,
   Param,
   Post,
@@ -29,6 +30,7 @@ import { NotaAddItemDto } from '../dtos/nota-add-item.dto';
 import { NotaCreateDto } from '../dtos/nota-create.dto';
 import { NotaEditDto } from '../dtos/nota-edit.dto';
 import { NotaPaginateDto } from '../dtos/nota-paginate.dto';
+import { NotaDeleteService } from 'src/application/notas/nota-delete.service';
 
 @ApiTags('Notas')
 @Controller('notas')
@@ -64,6 +66,13 @@ export class NotasController {
   async update(@Param() params: NotaEditParams, @Body() payload: NotaEditDto) {
     const service = new NotaEditService(this.unitOfWork);
     return service.execute(params, payload);
+  }
+
+  @Delete(':id')
+  async delete(@Param('id') id: string) {
+    const service = new NotaDeleteService(this.unitOfWork);
+    const result = await this.unitOfWork.complete(() => service.execute(id));
+    return of(result);
   }
 
   @Get(':id/items')

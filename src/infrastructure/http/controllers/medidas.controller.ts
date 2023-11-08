@@ -1,6 +1,7 @@
 import {
   Body,
   Controller,
+  Delete,
   Get,
   HttpException,
   Param,
@@ -23,6 +24,7 @@ import { TypeormUnitOfWork } from 'src/infrastructure/database/unit-of-works/typ
 import { MedidaCreateDto } from '../dtos/medida-create.dto';
 import { MedidaEditDto } from '../dtos/medida-edit.dto';
 import { PaginateDto } from '../../../shared/dtos/paginate.dto';
+import { MedidaDeleteService } from 'src/application/medidas/medida-delete.service';
 
 @ApiTags('Medidas')
 @Controller('medidas')
@@ -64,5 +66,12 @@ export class MedidasController {
     const service = new MedidaEditService(this.unitOfWork);
     request.id = new IdentifyUUID(id);
     return this.unitOfWork.complete(() => service.execute(request));
+  }
+
+  @Delete(':id')
+  async delete(@Param('id') id: string) {
+    const service = new MedidaDeleteService(this.unitOfWork);
+    const result = await this.unitOfWork.complete(() => service.execute(id));
+    return of(result);
   }
 }

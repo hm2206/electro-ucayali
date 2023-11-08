@@ -1,6 +1,7 @@
 import {
   Body,
   Controller,
+  Delete,
   Get,
   Param,
   ParseUUIDPipe,
@@ -22,6 +23,7 @@ import { TypeormUnitOfWork } from 'src/infrastructure/database/unit-of-works/typ
 import { LugarCreateDto } from '../dtos/lugar-create.dto';
 import { LugarEditDto } from '../dtos/lugar-edit.dto';
 import { PaginateDto } from '../../../shared/dtos/paginate.dto';
+import { LugarDeleteService } from 'src/application/lugares/lugar-delete.service';
 
 @ApiTags('Lugares')
 @Controller('lugares')
@@ -64,6 +66,13 @@ export class LugaresController {
     const result = await this.unitOfWork.complete(() =>
       service.execute(request),
     );
+    return of(result);
+  }
+
+  @Delete(':id')
+  async delete(@Param('id') id: string) {
+    const service = new LugarDeleteService(this.unitOfWork);
+    const result = await this.unitOfWork.complete(() => service.execute(id));
     return of(result);
   }
 }

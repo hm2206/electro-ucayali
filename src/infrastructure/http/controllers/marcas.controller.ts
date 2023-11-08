@@ -1,6 +1,7 @@
 import {
   Body,
   Controller,
+  Delete,
   Get,
   Param,
   ParseUUIDPipe,
@@ -22,6 +23,7 @@ import { TypeormUnitOfWork } from 'src/infrastructure/database/unit-of-works/typ
 import { MarcaCreateDto } from '../dtos/marca-create.dto';
 import { MarcaEditDto } from '../dtos/marca-edit.dto';
 import { PaginateDto } from '../../../shared/dtos/paginate.dto';
+import { MarcaDeleteService } from 'src/application/marcas/marca-delete.service';
 
 @ApiTags('Marcas')
 @Controller('marcas')
@@ -64,6 +66,13 @@ export class MarcasController {
     const result = await this.unitOfWork.complete(() =>
       service.execute(request),
     );
+    return of(result);
+  }
+
+  @Delete(':id')
+  async delete(@Param('id') id: string) {
+    const service = new MarcaDeleteService(this.unitOfWork);
+    const result = await this.unitOfWork.complete(() => service.execute(id));
     return of(result);
   }
 }

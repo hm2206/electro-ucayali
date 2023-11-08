@@ -1,6 +1,7 @@
 import {
   Body,
   Controller,
+  Delete,
   Get,
   Param,
   ParseUUIDPipe,
@@ -22,6 +23,7 @@ import {
 } from 'src/application/productos/producto-find.service';
 import { ProductoEditService } from 'src/application/productos/producto-edit.service';
 import { ProductoEditDto } from '../dtos/producto-edit.dto';
+import { ProductoDeleteService } from 'src/application/productos/producto-delete.service';
 
 @ApiTags('Productos')
 @Controller('productos')
@@ -64,6 +66,13 @@ export class ProductosController {
     const result = await this.unitOfWork.complete(() =>
       service.execute(request),
     );
+    return of(result);
+  }
+
+  @Delete(':id')
+  async delete(@Param('id') id: string) {
+    const service = new ProductoDeleteService(this.unitOfWork);
+    const result = await this.unitOfWork.complete(() => service.execute(id));
     return of(result);
   }
 }

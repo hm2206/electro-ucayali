@@ -1,6 +1,7 @@
 import {
   Body,
   Controller,
+  Delete,
   Get,
   Param,
   ParseUUIDPipe,
@@ -22,6 +23,7 @@ import { TypeormUnitOfWork } from 'src/infrastructure/database/unit-of-works/typ
 import { AreaCreateDto } from '../dtos/area-create.dto';
 import { AreaEditDto } from '../dtos/area-edit.dto';
 import { PaginateDto } from '../../../shared/dtos/paginate.dto';
+import { AreaDeleteService } from 'src/application/areas/area-delete.service';
 
 @ApiTags('areas')
 @Controller('areas')
@@ -64,6 +66,13 @@ export class AreasController {
     const result = await this.unitOfWork.complete(() =>
       service.execute(request),
     );
+    return of(result);
+  }
+
+  @Delete(':id')
+  async delete(@Param('id') id: string) {
+    const service = new AreaDeleteService(this.unitOfWork);
+    const result = await this.unitOfWork.complete(() => service.execute(id));
     return of(result);
   }
 }
