@@ -18,7 +18,7 @@ export class ProductoOrm {
   @PrimaryColumn('uuid')
   id: string;
 
-  @Column({ unique: true })
+  @Column()
   code: string;
 
   @Column({ nullable: true })
