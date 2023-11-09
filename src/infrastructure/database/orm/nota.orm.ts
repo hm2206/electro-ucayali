@@ -46,6 +46,9 @@ export class NotaOrm {
   @Column('text', { nullable: true })
   observation?: string;
 
+  @Column({ default: true })
+  state: boolean;
+
   @CreateDateColumn()
   createdAt: Date;
 

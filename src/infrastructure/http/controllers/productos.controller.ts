@@ -24,6 +24,7 @@ import {
 import { ProductoEditService } from 'src/application/productos/producto-edit.service';
 import { ProductoEditDto } from '../dtos/producto-edit.dto';
 import { ProductoDeleteService } from 'src/application/productos/producto-delete.service';
+import { ProductoMasMovimientoService } from 'src/application/productos/producto-mas-movimiento.service';
 
 @ApiTags('Productos')
 @Controller('productos')
@@ -74,5 +75,11 @@ export class ProductosController {
     const service = new ProductoDeleteService(this.unitOfWork);
     const result = await this.unitOfWork.complete(() => service.execute(id));
     return of(result);
+  }
+
+  @Get('resume/masVendido')
+  async masVendido() {
+    const service = new ProductoMasMovimientoService(this.unitOfWork);
+    return service.execute();
   }
 }

@@ -9,6 +9,6 @@ export class NotaDeleteService implements IBaseServiceInterface {
     await this.unitOfWork.start();
     const nota = await notaRepository.findOne({ where: { id } });
     if (!nota) throw new Error('No se encontró la nota');
-    return notaRepository.delete(nota);
+    return notaRepository.update(nota.id, { state: false });
   }
 }

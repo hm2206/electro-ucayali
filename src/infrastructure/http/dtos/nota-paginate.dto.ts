@@ -1,6 +1,12 @@
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 import { Transform, Type } from 'class-transformer';
-import { IsDateString, IsDefined, IsNumber, IsOptional } from 'class-validator';
+import {
+  IsBoolean,
+  IsDateString,
+  IsDefined,
+  IsNumber,
+  IsOptional,
+} from 'class-validator';
 
 export class NotaPaginateRangeDateDto {
   @ApiProperty()
@@ -30,6 +36,12 @@ export class NotaPaginateDto {
   @ApiPropertyOptional()
   @IsOptional()
   querySearch?: string;
+
+  @ApiPropertyOptional()
+  @IsOptional()
+  @IsBoolean()
+  @Transform(({ value }) => (!!value ? JSON.parse(value) : undefined))
+  state?: boolean;
 
   @ApiPropertyOptional({ type: NotaPaginateRangeDateDto })
   @IsOptional()

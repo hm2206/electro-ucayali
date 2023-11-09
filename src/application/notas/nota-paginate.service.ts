@@ -22,6 +22,10 @@ export class NotaPaginateService {
         `n.date BETWEEN '${params.rangeDate.dateStart}' AND '${params.rangeDate.dateOver}'`,
       );
     }
+
+    if (!!params?.state) {
+      queryBuilder.andWhere(`n.state = ${params.state}`);
+    }
     // response
     return paginate(queryBuilder, params);
   }
@@ -31,6 +35,7 @@ export interface NotaPaginateParams {
   page: number;
   limit: number;
   querySearch?: string;
+  state?: boolean;
   rangeDate?: {
     dateStart: string;
     dateOver: string;
