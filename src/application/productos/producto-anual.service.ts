@@ -29,6 +29,7 @@ export class ProductoAnualService {
 
     const body = await this.queryBase(params)
       .andWhere(`pro.id IN ('${ids.join("', '")}')`)
+      .andWhere(`n."type" = '${type}'`)
       .select(`pro.id as id`)
       .addSelect("DATE_PART('Year', n.date)", 'year')
       .addSelect("DATE_PART('Month', n.date)", 'month')
