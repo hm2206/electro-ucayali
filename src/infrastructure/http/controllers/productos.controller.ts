@@ -25,6 +25,8 @@ import { ProductoEditService } from 'src/application/productos/producto-edit.ser
 import { ProductoEditDto } from '../dtos/producto-edit.dto';
 import { ProductoDeleteService } from 'src/application/productos/producto-delete.service';
 import { ProductoMasMovimientoService } from 'src/application/productos/producto-mas-movimiento.service';
+import { ProductoAnualService } from 'src/application/productos/producto-anual.service';
+import { ProductoAnualDto } from '../dtos/producto-anual.dto';
 
 @ApiTags('Productos')
 @Controller('productos')
@@ -81,5 +83,11 @@ export class ProductosController {
   async masVendido() {
     const service = new ProductoMasMovimientoService(this.unitOfWork);
     return service.execute();
+  }
+
+  @Get('resume/anual')
+  async anual(@Query() query: ProductoAnualDto) {
+    const service = new ProductoAnualService(this.unitOfWork);
+    return service.execute(query);
   }
 }
