@@ -5,9 +5,18 @@ export class ProductoAnualService {
   constructor(private unitOfWork: IUnitOfWorkInterface) {}
 
   async execute(params: ProductoAnualRequest) {
+    const [entry, exit] = await Promise.all([
+      this.query(NotaTypeEnum.ENTRY, params),
+      this.query(NotaTypeEnum.EXIT, params),
+    ]);
+    return { entry, exit };
+  }
+
+  private async query(type: NotaTypeEnum, params: ProductoAnualRequest) {
     const header = await this.queryBase(params)
       .select('pro.id, pro.name')
       .addSelect('SUM(it.amount)', 'amount')
+      .andWhere(`n."type" = '${type}'`)
       .groupBy('pro.id, pro.name')
       .orderBy('amount', 'DESC')
       .addOrderBy('pro.name', 'ASC')
@@ -51,15 +60,10 @@ export class ProductoAnualService {
       queryBuilder.andWhere(`DATE_PART('Year', n.date) = ${params.year}`);
     }
 
-    if (params.type) {
-      queryBuilder.andWhere(`n."type" = '${params.type}'`);
-    }
-
     return queryBuilder;
   }
 }
 
 export interface ProductoAnualRequest {
   year?: number;
-  type?: NotaTypeEnum;
 }
