@@ -79,7 +79,7 @@ export class ProductosController {
     return of(result);
   }
 
-  @Get('resume/masVendido')
+  @Get('resume/masMovimientos')
   async masVendido() {
     const service = new ProductoMasMovimientoService(this.unitOfWork);
     return service.execute();

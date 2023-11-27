@@ -19,6 +19,9 @@ export class MedidaOrm {
   @Column()
   description: string;
 
+  @Column({ default: true })
+  state: boolean;
+
   @CreateDateColumn()
   createdAt: Date;
 

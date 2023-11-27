@@ -19,6 +19,9 @@ export class AreaOrm {
   @Column({ nullable: true })
   description?: string;
 
+  @Column({ default: true })
+  state: boolean;
+
   @CreateDateColumn()
   createdAt: Date;
 

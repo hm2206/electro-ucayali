@@ -24,6 +24,9 @@ export class SecuenciaOrm {
   @Column()
   formato: string;
 
+  @Column({ default: true })
+  state: boolean;
+
   @CreateDateColumn()
   createdAt: Date;
 

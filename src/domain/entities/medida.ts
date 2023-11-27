@@ -4,6 +4,7 @@ import { NoneEmptyString } from '../value-objects/none-empty-string';
 export class Medida extends BaseEntity {
   private name: string;
   private description: string;
+  private state: boolean;
 
   setName(name: NoneEmptyString) {
     this.name = name.getValue();
@@ -19,5 +20,13 @@ export class Medida extends BaseEntity {
 
   getDescription() {
     return this.description;
+  }
+
+  setState(state: boolean) {
+    this.state = state;
+  }
+
+  getState() {
+    return this.state;
   }
 }

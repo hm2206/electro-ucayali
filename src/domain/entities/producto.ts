@@ -13,6 +13,7 @@ export class Producto extends BaseEntity {
   public stock: number;
   private medidaId: string;
   private marcaId: string;
+  private state: boolean;
 
   setCode(code: NoneEmptyString) {
     this.code = code.getValue();
@@ -92,5 +93,13 @@ export class Producto extends BaseEntity {
 
   getMarcaId() {
     return this.marcaId;
+  }
+
+  setState(state: boolean) {
+    this.state = state;
+  }
+
+  getState() {
+    this.state;
   }
 }

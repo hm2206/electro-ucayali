@@ -20,6 +20,9 @@ export class SituacionOrm implements SituacionEntity {
   @Column()
   description: string;
 
+  @Column({ default: true })
+  state: boolean;
+
   @CreateDateColumn()
   createdAt: Date;
 

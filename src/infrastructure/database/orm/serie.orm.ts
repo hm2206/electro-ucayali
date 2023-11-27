@@ -21,6 +21,9 @@ export class SerieOrm {
   @Column('uuid')
   itemId: string;
 
+  @Column({ default: true })
+  state: boolean;
+
   @CreateDateColumn()
   createdAt: Date;
 

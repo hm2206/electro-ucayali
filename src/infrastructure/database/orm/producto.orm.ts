@@ -48,6 +48,9 @@ export class ProductoOrm {
   @Column('uuid')
   medidaId: string;
 
+  @Column({ default: true })
+  state: boolean;
+
   @CreateDateColumn()
   createdAt: Date;
 

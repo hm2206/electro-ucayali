@@ -4,6 +4,7 @@ import { NoneEmptyString } from '../value-objects/none-empty-string';
 export class Lugar extends BaseEntity {
   private name: string;
   private description: string;
+  private state: boolean;
 
   setName(name: NoneEmptyString): void {
     this.name = name.getValue();
@@ -19,5 +20,13 @@ export class Lugar extends BaseEntity {
 
   getDescription(): string {
     return this.description;
+  }
+
+  setState(value: boolean) {
+    this.state = value;
+  }
+
+  getState() {
+    return this.state;
   }
 }
