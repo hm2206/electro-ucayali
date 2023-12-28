@@ -4,9 +4,19 @@ export class MedidaDeleteService {
   constructor(private unitOfWork: IUnitOfWorkInterface) {}
 
   async execute(id: string) {
-    const medidaRepository = this.unitOfWork.medidaRepository;
+    const { medidaRepository, productoRepository } = this.unitOfWork;
     const medida = await medidaRepository.findOne({ where: { id } });
     if (!medida) throw new Error('El regístro no existe!');
-    return medidaRepository.delete(medida.id);
+    const count = await productoRepository
+      .createQueryBuilder()
+      .andWhere(`medidaId = '${medida.id}'`)
+      .getCount();
+    if (count) {
+      await medidaRepository.update(medida.id, { state: false });
+      return { message: 'Registro desactivado' };
+    } else {
+      await medidaRepository.delete(medida.id);
+      return { message: 'Registro Eliminado' };
+    }
   }
 }

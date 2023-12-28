@@ -13,7 +13,7 @@ export class MarcaPaginateService implements IBaseServiceInterface {
     // filters
     if (request.querySearch) {
       queryBuilder.andWhere(
-        `(name like '%${request.querySearch}%' OR description like '%${request.querySearch}%')`,
+        `(UPPER(name) like UPPER('%${request.querySearch}%') OR UPPER(description) like UPPER('%${request.querySearch}%'))`,
       );
     }
     // response

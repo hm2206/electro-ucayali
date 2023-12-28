@@ -14,7 +14,9 @@ export class NotaPaginateService {
       .leftJoinAndSelect('n.situacion', 's');
     // filter querySearch
     if (params.querySearch) {
-      queryBuilder.andWhere(`n.documentCrp like '%${params.querySearch}%'`);
+      queryBuilder.andWhere(
+        `UPPER(n.documentCrp) like UPPER('%${params.querySearch}%')`,
+      );
     }
 
     if (params?.rangeDate) {

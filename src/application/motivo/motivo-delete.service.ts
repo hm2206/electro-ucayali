@@ -6,10 +6,20 @@ export class MotivoDeleteService implements IBaseServiceInterface {
   constructor(private unitOfWork: IUnitOfWorkInterface) {}
 
   async execute(params: MotivoFindRequest) {
-    const { motivoRepository } = this.unitOfWork;
+    const { motivoRepository, notaRepository } = this.unitOfWork;
     await this.unitOfWork.start();
     const motivo = await motivoRepository.findOne({ where: params });
     if (!motivo) throw new Error('No se encontró el motivo');
-    return motivoRepository.delete(motivo);
+    const count = await notaRepository
+      .createQueryBuilder()
+      .andWhere(`motivoId = '${motivo.id}'`)
+      .getCount();
+    if (count) {
+      await motivoRepository.update(motivo.id, { state: false });
+      return { message: 'Registro desactivado' };
+    } else {
+      await motivoRepository.delete(motivo.id);
+      return { message: 'Registro eliminado' };
+    }
   }
 }

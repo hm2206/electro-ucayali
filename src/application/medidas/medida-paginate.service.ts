@@ -15,7 +15,7 @@ export class MedidaPaginateService implements IBaseServiceInterface {
     // filter
     if (request.querySearch) {
       queryBuilder.andWhere(
-        `(name like '%${request.querySearch}%' OR description like '%${request.querySearch}%')`,
+        `(UPPER(name) like UPPER('%${request.querySearch}%') OR UPPER(description) like UPPER('%${request.querySearch}%'))`,
       );
     }
     // response
