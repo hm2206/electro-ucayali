@@ -13,4 +13,5 @@ export interface NotaEntity {
   lugar: Lugar;
   motivoId?: string;
   situacionId?: string;
+  state: boolean;
 }
