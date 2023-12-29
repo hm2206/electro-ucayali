@@ -9,7 +9,7 @@ export class LugarDeleteService {
     if (!lugar) throw new Error('El regístro no existe!');
     const count = await notaRepository
       .createQueryBuilder()
-      .andWhere(`lugarId = '${lugar.id}'`)
+      .andWhere(`"lugarId" = '${lugar.id}'`)
       .getCount();
     if (count) {
       await lugarRepository.update(lugar.id, { state: false });

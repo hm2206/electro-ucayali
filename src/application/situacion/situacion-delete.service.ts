@@ -12,7 +12,7 @@ export class SituacionDeleteService implements IBaseServiceInterface {
     if (!situacion) throw new Error('No se encontró la situación');
     const count = await notaRepository
       .createQueryBuilder()
-      .andWhere(`situacionId = '${situacion.id}'`)
+      .andWhere(`"situacionId" = '${situacion.id}'`)
       .getCount();
     if (count) {
       await situacionRepository.update(situacion.id, { state: false });

@@ -9,7 +9,7 @@ export class MarcaDeleteService {
     if (!marca) throw new Error('El regístro no existe!');
     const count = await productoRepository
       .createQueryBuilder()
-      .andWhere(`marcaId = '${marca.id}'`)
+      .andWhere(`"marcaId" = '${marca.id}'`)
       .getCount();
     if (count) {
       await marcaRepository.update(marca.id, { state: false });

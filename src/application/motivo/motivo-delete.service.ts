@@ -12,7 +12,7 @@ export class MotivoDeleteService implements IBaseServiceInterface {
     if (!motivo) throw new Error('No se encontró el motivo');
     const count = await notaRepository
       .createQueryBuilder()
-      .andWhere(`motivoId = '${motivo.id}'`)
+      .andWhere(`"motivoId" = '${motivo.id}'`)
       .getCount();
     if (count) {
       await motivoRepository.update(motivo.id, { state: false });

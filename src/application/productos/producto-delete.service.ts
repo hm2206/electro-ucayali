@@ -9,7 +9,7 @@ export class ProductoDeleteService {
     if (!producto) throw new Error('El regístro no existe!');
     const count = await itemRepository
       .createQueryBuilder()
-      .andWhere(`productoId = '${producto.id}'`)
+      .andWhere(`"productoId" = '${producto.id}'`)
       .getCount();
     if (count) {
       await itemRepository.update(producto.id, { state: false });

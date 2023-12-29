@@ -11,7 +11,7 @@ export class NotaDeleteService implements IBaseServiceInterface {
     if (!nota) throw new Error('No se encontró la nota');
     const count = await itemRepository
       .createQueryBuilder()
-      .andWhere(`notaId = '${nota.id}'`)
+      .andWhere(`"notaId" = '${nota.id}'`)
       .getCount();
     if (count) {
       await notaRepository.update(nota.id, { state: false });

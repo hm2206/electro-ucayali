@@ -9,7 +9,7 @@ export class AreaDeleteService {
     if (!area) throw new Error('El regístro no existe!');
     const count = await notaRepository
       .createQueryBuilder('n')
-      .andWhere(`n.areaId = '${area.id}'`)
+      .andWhere(`n."areaId" = '${area.id}'`)
       .getCount();
     if (count) {
       await areaRepository.update(area.id, { state: false });
