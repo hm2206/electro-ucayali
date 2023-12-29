@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsDefined, IsString } from 'class-validator';
+import { IsBoolean, IsDefined, IsString } from 'class-validator';
 import { AreaEditRequest } from 'src/application/areas/area-edit.service';
 
 export class AreaEditDto extends AreaEditRequest {
@@ -12,4 +12,9 @@ export class AreaEditDto extends AreaEditRequest {
   @IsDefined()
   @IsString()
   description: string;
+
+  @ApiProperty()
+  @IsDefined()
+  @IsBoolean()
+  state: boolean;
 }

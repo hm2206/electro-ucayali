@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsDefined, IsString } from 'class-validator';
+import { IsBoolean, IsDefined, IsString } from 'class-validator';
 import { SituacionEditRequest } from 'src/application/situacion/situacion-edit.service';
 
 export class SituacionEditDto extends SituacionEditRequest {
@@ -12,4 +12,9 @@ export class SituacionEditDto extends SituacionEditRequest {
   @IsDefined()
   @IsString()
   description: string;
+
+  @ApiProperty()
+  @IsDefined()
+  @IsBoolean()
+  state: boolean;
 }

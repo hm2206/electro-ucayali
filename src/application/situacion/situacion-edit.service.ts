@@ -11,10 +11,10 @@ export class SituacionEditService implements IBaseServiceInterface {
     const situacion = await situacionRepository.findOne({
       where: params,
     });
-    console.log(params);
     if (!situacion) throw new Error('No se encontró la situación');
     situacion.name = request.name;
     situacion.description = request.description;
+    situacion.state = request.state;
     return situacionRepository.save(situacion);
   }
 }
@@ -22,4 +22,5 @@ export class SituacionEditService implements IBaseServiceInterface {
 export class SituacionEditRequest {
   name: string;
   description: string;
+  state: boolean;
 }

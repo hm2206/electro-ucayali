@@ -13,6 +13,7 @@ export class MarcaEditService implements IBaseServiceInterface {
     marca.setId(request.id);
     marca.setName(new NoneEmptyString(request.name));
     marca.setDescription(new NoneEmptyString(request.description));
+    marca.setState(request.state);
     await this.unitOfWork.start();
     return marcaRepository.save(marca);
   }
@@ -22,4 +23,5 @@ export class MarcaEditRequest {
   id: IdentifyUUID;
   name: string;
   description: string;
+  state: boolean;
 }

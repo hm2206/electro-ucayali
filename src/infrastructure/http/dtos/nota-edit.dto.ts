@@ -1,6 +1,7 @@
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 import { Type } from 'class-transformer';
 import {
+  IsBoolean,
   IsDateString,
   IsDefined,
   IsEnum,
@@ -69,6 +70,11 @@ export class NotaEditDto {
   @IsOptional()
   @IsUUID()
   situacionId?: string;
+
+  @ApiProperty()
+  @IsDefined()
+  @IsBoolean()
+  state: boolean;
 
   @ApiProperty({ type: NotaEditItemDto, isArray: true })
   @IsDefined()

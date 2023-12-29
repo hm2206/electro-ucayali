@@ -13,6 +13,7 @@ export class MedidaEditService implements IBaseServiceInterface {
     medida.setId(request.id);
     medida.setName(new NoneEmptyString(request.name));
     medida.setDescription(new NoneEmptyString(request.description));
+    medida.setState(request.state);
     await this.unitOfWork.start();
     return medidaRepository.save(medida);
   }
@@ -22,4 +23,5 @@ export class MedidaEditRequest {
   id: IdentifyUUID;
   name: string;
   description: string;
+  state: boolean;
 }

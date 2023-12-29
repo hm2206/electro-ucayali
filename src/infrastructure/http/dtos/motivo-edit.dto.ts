@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsDefined, IsString } from 'class-validator';
+import { IsBoolean, IsDefined, IsString } from 'class-validator';
 import { MotivoEditRequest } from 'src/application/motivo/motivo-edit.service';
 
 export class MotivoEditDto extends MotivoEditRequest {
@@ -12,4 +12,9 @@ export class MotivoEditDto extends MotivoEditRequest {
   @IsDefined()
   @IsString()
   description: string;
+
+  @ApiProperty()
+  @IsDefined()
+  @IsBoolean()
+  state: boolean;
 }

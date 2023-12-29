@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsDefined, IsString } from 'class-validator';
+import { IsBoolean, IsDefined, IsString } from 'class-validator';
 import { MedidaEditRequest } from 'src/application/medidas/medida-edit.service';
 
 export class MarcaEditDto extends MedidaEditRequest {
@@ -12,4 +12,9 @@ export class MarcaEditDto extends MedidaEditRequest {
   @IsDefined()
   @IsString()
   description: string;
+
+  @ApiProperty()
+  @IsDefined()
+  @IsBoolean()
+  state: boolean;
 }

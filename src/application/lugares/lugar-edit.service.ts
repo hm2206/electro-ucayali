@@ -13,6 +13,7 @@ export class LugarEditService implements IBaseServiceInterface {
     lugar.setId(request.id);
     lugar.setName(new NoneEmptyString(request.name));
     lugar.setDescription(new NoneEmptyString(request.description));
+    lugar.setState(request.state);
     await this.unitOfWork.start();
     return lugarRepository.save(lugar);
   }
@@ -22,4 +23,5 @@ export class LugarEditRequest {
   id: IdentifyUUID;
   name: string;
   description: string;
+  state: boolean;
 }

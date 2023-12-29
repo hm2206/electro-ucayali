@@ -21,6 +21,7 @@ export class ProductoEditService implements IBaseServiceInterface {
     producto.setStock(request.stock);
     producto.setMedidaId(request.medidaId);
     producto.setMarcaId(request.marcaId);
+    producto.setState(request.state);
     await this.unitOfWork.start();
     return productoRepository.save(producto);
   }
@@ -38,4 +39,5 @@ export class ProductoEditRequest {
   stock: number;
   medidaId: string;
   marcaId: string;
+  state: boolean;
 }

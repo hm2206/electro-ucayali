@@ -1,6 +1,7 @@
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 import { Type } from 'class-transformer';
 import {
+  IsBoolean,
   IsDefined,
   IsNumber,
   IsOptional,
@@ -74,6 +75,11 @@ export class ProductoEditDto extends ProductoEditRequest {
   @IsDefined()
   @IsNumber()
   stock: number;
+
+  @ApiProperty()
+  @IsDefined()
+  @IsBoolean()
+  state: boolean;
 
   @ApiProperty()
   @IsDefined()

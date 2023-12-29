@@ -20,4 +20,5 @@ export class MotivoCreateService implements IBaseServiceInterface {
 export interface MotivoCreateRequest {
   name: string;
   description: string;
+  state: boolean;
 }

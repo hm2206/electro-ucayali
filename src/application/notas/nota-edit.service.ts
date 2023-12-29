@@ -23,6 +23,7 @@ export class NotaEditService {
       lugarId: payload.lugarId,
       motivoId: payload.motivoId,
       situacionId: payload.situacionId,
+      state: payload.state,
     });
     // response
     return { updated: true };
@@ -42,6 +43,7 @@ export interface NotaEditPayload {
   lugarId: string;
   motivoId?: string;
   situacionId?: string;
+  state: boolean;
   items: {
     id: string;
     productoId: string;

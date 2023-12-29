@@ -13,6 +13,7 @@ export class AreaEditService implements IBaseServiceInterface {
     area.setId(request.id);
     area.setName(new NoneEmptyString(request.name));
     area.setDescription(new NoneEmptyString(request.name));
+    area.setState(request.state);
     await this.unitOfWork.start();
     return areaRepository.save(area);
   }
@@ -22,4 +23,5 @@ export class AreaEditRequest {
   id: IdentifyUUID;
   name: string;
   description: string;
+  state: boolean;
 }
