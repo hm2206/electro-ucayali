@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsDefined, IsString } from 'class-validator';
+import { IsBoolean, IsDefined, IsString } from 'class-validator';
 import { MotivoCreateRequest } from 'src/application/motivo/motivo-create.service';
 
 export class MotivoCreateDto implements MotivoCreateRequest {
@@ -12,4 +12,9 @@ export class MotivoCreateDto implements MotivoCreateRequest {
   @IsDefined()
   @IsString()
   description: string;
+
+  @ApiProperty()
+  @IsDefined()
+  @IsBoolean()
+  state: boolean;
 }
