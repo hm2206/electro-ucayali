@@ -11,7 +11,8 @@ export class NotaPaginateService {
       .innerJoinAndSelect('n.area', 'a')
       .innerJoinAndSelect('n.lugar', 'l')
       .leftJoinAndSelect('n.motivo', 'm')
-      .leftJoinAndSelect('n.situacion', 's');
+      .leftJoinAndSelect('n.situacion', 's')
+      .orderBy('n.date', 'DESC');
     // filter querySearch
     if (params.querySearch) {
       queryBuilder.andWhere(

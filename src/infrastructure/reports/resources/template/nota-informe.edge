@@ -102,10 +102,28 @@
     .cell-title {
       padding: 0.3em;
     }
+
+    .watermark-text {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 70px;
+      color: rgba(0, 0, 0, 0.1); /* Ajusta la opacidad */
+      font-weight: bold;
+      text-transform: uppercase;
+      pointer-events: none;
+      z-index: -1;
+    }
   </style>
 
 </head>
 <body>
+  @if(!nota.state)
+    <div class="watermark-text">
+      ANULADO
+    </div>
+  @endif
   <table class="table">
     <thead>
       <tr>
