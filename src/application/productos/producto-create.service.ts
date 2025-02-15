@@ -20,6 +20,14 @@ export class ProductoCreateService implements IBaseServiceInterface {
     producto.setMedidaId(request.medidaId);
     producto.setMarcaId(request.marcaId);
     await this.unitOfWork.start();
+    if (producto.getCodePatrimonial()) {
+      const exists = await productoRepository.findOne({
+        where: { codePatrimonial: producto.getCodePatrimonial() },
+      });
+      if (exists) {
+        throw new Error('El codigo protimonial ya está en uso');
+      }
+    }
     return productoRepository.save(producto);
   }
 }
