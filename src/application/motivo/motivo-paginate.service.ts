@@ -18,9 +18,15 @@ export class MotivoPaginateService implements IBaseServiceInterface {
         `(UPPER(name) like UPPER('%${request.querySearch}%') OR UPPER(description) like UPPER('%${request.querySearch}%'))`,
       );
     }
+
+    if (typeof request.state == 'boolean') {
+      queryBuilder.andWhere(`state = ${request.state}`);
+    }
     // response
     return paginate<MotivoOrm>(queryBuilder, request);
   }
 }
 
-export class MotivoPaginateRequest extends Paginate {}
+export class MotivoPaginateRequest extends Paginate {
+  state?: boolean;
+}

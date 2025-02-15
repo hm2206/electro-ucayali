@@ -1,6 +1,7 @@
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 import { Transform, Type } from 'class-transformer';
 import {
+  IsBoolean,
   IsNumber,
   IsOptional,
   IsString,
@@ -24,6 +25,12 @@ export class PaginateDto extends Paginate {
   @IsOptional()
   @IsString()
   querySearch?: string;
+
+  @ApiPropertyOptional()
+  @IsOptional()
+  @IsBoolean()
+  @Transform(({ value }) => (!!value ? JSON.parse(value) : undefined))
+  state?: boolean;
 
   @ApiPropertyOptional()
   @IsOptional()
