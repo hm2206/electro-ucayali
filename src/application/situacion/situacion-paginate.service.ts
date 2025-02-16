@@ -18,9 +18,15 @@ export class SituacionPaginateService implements IBaseServiceInterface {
         `(UPPER(name) like UPPER('%${request.querySearch}%') OR UPPER(description) like UPPER('%${request.querySearch}%'))`,
       );
     }
+
+    if (typeof request.state == 'boolean') {
+      queryBuilder.andWhere(`state = ${request.state}`);
+    }
     // response
     return paginate<SituacionOrm>(queryBuilder, request);
   }
 }
 
-export class SituacionPaginateRequest extends Paginate {}
+export class SituacionPaginateRequest extends Paginate {
+  state?: boolean;
+}

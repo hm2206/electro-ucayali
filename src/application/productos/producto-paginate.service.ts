@@ -22,9 +22,15 @@ export class ProductoPaginateService implements IBaseServiceInterface {
         `(UPPER(p.code) like UPPER('%${request.querySearch}%') OR UPPER(p.name) like UPPER('%${request.querySearch}%') OR UPPER(p.description) like UPPER('%${request.querySearch}%'))`,
       );
     }
+
+    if (typeof request.state == 'boolean') {
+      queryBuilder.andWhere(`state = ${request.state}`);
+    }
     // response
     return paginate<ProductoOrm>(queryBuilder, request);
   }
 }
 
-export class ProductoPaginateRequest extends Paginate {}
+export class ProductoPaginateRequest extends Paginate {
+  state?: boolean;
+}

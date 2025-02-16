@@ -16,9 +16,15 @@ export class MarcaPaginateService implements IBaseServiceInterface {
         `(UPPER(name) like UPPER('%${request.querySearch}%') OR UPPER(description) like UPPER('%${request.querySearch}%'))`,
       );
     }
+
+    if (typeof request.state == 'boolean') {
+      queryBuilder.andWhere(`state = ${request.state}`);
+    }
     // response
     return paginate<MarcaOrm>(queryBuilder, request);
   }
 }
 
-export class MarcaPaginateRequest extends Paginate {}
+export class MarcaPaginateRequest extends Paginate {
+  state?: boolean;
+}

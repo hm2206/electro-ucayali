@@ -18,9 +18,15 @@ export class MedidaPaginateService implements IBaseServiceInterface {
         `(UPPER(name) like UPPER('%${request.querySearch}%') OR UPPER(description) like UPPER('%${request.querySearch}%'))`,
       );
     }
+
+    if (typeof request.state == 'boolean') {
+      queryBuilder.andWhere(`state = ${request.state}`);
+    }
     // response
     return paginate<MedidaOrm>(queryBuilder, request);
   }
 }
 
-export class MedidaPaginateRequest extends Paginate {}
+export class MedidaPaginateRequest extends Paginate {
+  state?: boolean;
+}

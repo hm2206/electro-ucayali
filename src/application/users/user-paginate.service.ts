@@ -15,11 +15,16 @@ export class UserPaginateService implements IBaseServiceInterface {
     if (request.querySearch) {
       queryBuilder.andWhere(`email like '%${request.querySearch}%'`);
     }
+
+    if (typeof request.state == 'boolean') {
+      queryBuilder.andWhere(`state = ${request.state}`);
+    }
     // response
     return paginate<UserOrm>(queryBuilder, request);
   }
 }
 
 export interface UserPaginateRequest extends PaginateRequestInterface {
+  state?: boolean;
   orders?: OrderRequestInterface<'email' | 'state'>[];
 }

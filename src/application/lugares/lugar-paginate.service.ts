@@ -16,9 +16,15 @@ export class LugarPaginateService implements IBaseServiceInterface {
         `(UPPER(name) like UPPER('%${request.querySearch}%') OR UPPER(description) like UPPER('%${request.querySearch}%'))`,
       );
     }
+
+    if (typeof request.state == 'boolean') {
+      queryBuilder.andWhere(`state = ${request.state}`);
+    }
     // response
     return paginate<LugarOrm>(queryBuilder, request);
   }
 }
 
-export class LugarPaginateRequest extends Paginate {}
+export class LugarPaginateRequest extends Paginate {
+  state?: boolean;
+}

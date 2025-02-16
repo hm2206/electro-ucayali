@@ -16,9 +16,15 @@ export class AreaPaginateService implements IBaseServiceInterface {
         `(UPPER(name) like UPPER('%${request.querySearch}%') OR UPPER(description) like UPPER('%${request.querySearch}%'))`,
       );
     }
+
+    if (typeof request.state == 'boolean') {
+      queryBuilder.andWhere(`state = ${request.state}`);
+    }
     // response
     return paginate<AreaOrm>(queryBuilder, request);
   }
 }
 
-export class AreaPaginateRequest extends Paginate {}
+export class AreaPaginateRequest extends Paginate {
+  state?: boolean;
+}
