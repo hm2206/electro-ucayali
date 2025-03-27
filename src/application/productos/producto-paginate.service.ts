@@ -24,7 +24,7 @@ export class ProductoPaginateService implements IBaseServiceInterface {
     }
 
     if (typeof request.state == 'boolean') {
-      queryBuilder.andWhere(`state = ${request.state}`);
+      queryBuilder.andWhere(`p.state = ${request.state}`);
     }
     // response
     return paginate<ProductoOrm>(queryBuilder, request);
